@@ -5,12 +5,16 @@ import AdminManageViewVue from '@/views/Backstage/AdminManageView.vue'
 import FavSongListViewVue from '@/views/Frontstage/FavSongListView.vue'
 import MakeAlbumViewVue from '@/views/Frontstage/MakeAlbumView.vue'
 import MemberManageViewVue from '@/views/Backstage/MemberManageView.vue'
+import { useUserStore } from '@/stores/user'
 
 const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: HomeView,
+    meta: {
+      requireScreen: true
+    }
   },
   {
     path: '/album/:gener/:albumSinger',
@@ -52,5 +56,13 @@ const router = createRouter({
   routes: routes
 })
 
+router.beforeEach((to, form, next) => {
+  const store = useUserStore()
+  if (form.path !== '/' && !store.userLoggedIn) {
+    to.meta.requireScreen = false
+  }
+
+  next()
+})
 
 export default router

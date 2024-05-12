@@ -119,6 +119,7 @@ export default {
         name="confirm_password"
         type="password"
         class="block w-full py-1.5 px-3 bg-white/10 text-zinc-100 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
+        autocomplete="password"
         placeholder="再次確認密碼"
       />
       <ErrorMessage class="text-pink-600" name="confirm_password" />

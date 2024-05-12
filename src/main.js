@@ -1,11 +1,10 @@
-import './assets/main.css'
+import './assets/main.scss'
+import './assets/base.css'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import { VeeValidatePlugin } from './includes/validation'
 import { auth } from './includes/firebase'
-import './assets/base.css'
-import './assets/main.css'
 
 import App from './App.vue'
 import router from './router'

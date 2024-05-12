@@ -2,12 +2,14 @@
 import HomeSongPlayZone from '@/components/HomeSongPlayZone.vue'
 import HomeSongListZone from '@/components/HomeSongListZone.vue'
 import toastMessage from '@/components/Alert/toastMessage.vue'
+import SignScreen from '@/components/SignScreen.vue'
 
 export default {
   components: {
     HomeSongPlayZone,
     HomeSongListZone,
-    toastMessage
+    toastMessage,
+    SignScreen
   }
 }
 </script>
@@ -15,6 +17,7 @@ export default {
 <template>
   <main class="text-zinc-200 bg-zinc-900 mt-[55px] mb-[90px] relative">
     <toastMessage></toastMessage>
+    <SignScreen></SignScreen>
     <HomeSongPlayZone></HomeSongPlayZone>
     <HomeSongListZone :gener="'fundraising'"></HomeSongListZone>
     <HomeSongListZone :gener="'America'"></HomeSongListZone>

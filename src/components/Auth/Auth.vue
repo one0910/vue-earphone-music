@@ -6,7 +6,7 @@ import RegisterForm from '@/components/Auth/RegisterForm.vue'
 export default {
   data() {
     return {
-      tab: 'login'
+      // tab: 'login'
     }
   },
   components: {
@@ -15,6 +15,7 @@ export default {
   },
   computed: {
     ...mapState(useModalStore, ['hiddenClass']),
+    ...mapWritableState(useModalStore, ['tab']),
     // ...mapWritableState(useModalStore, ['isOpen']) /*透過mapWritableState可以修改store裡的所定義的state*/
     ...mapWritableState(useModalStore, {
       modalVisibility: 'isOpen'

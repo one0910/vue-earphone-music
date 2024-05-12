@@ -61,6 +61,7 @@ export default {
       this.$router.push({ name: 'home' })
       this.hamburgerChange = false
       this.menu_hamberger_css = ''
+      this.$route.meta.requireScreen = false
     },
     enterPage(content, menuLinkText) {
       const navigate = (menuLinkText) => {
