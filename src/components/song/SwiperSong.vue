@@ -48,9 +48,6 @@ export default {
       } catch (error) {
         console.error('Error adding album:', error)
       }
-    },
-    setAlbumInfo(album) {
-      this.albumInfo = album
     }
   },
   components: {
@@ -87,7 +84,6 @@ export default {
           <img
             :src="album.isRelease ? album.albumSingerImg : album.albumImg"
             alt=""
-            @click="setAlbumInfo(album)"
             :class="{ 'rounded-full': isfundraising, ' rounded-md': !isfundraising }"
           />
           <p

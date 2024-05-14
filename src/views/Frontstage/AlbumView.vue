@@ -20,6 +20,7 @@ export default {
     SongItem
   },
   computed: {
+    ...mapState(usePlayerStore, ['albumPageImgClass']),
     ...mapWritableState(useAlbumInfoStore, ['albumInfo']),
     ...mapWritableState(usePlayerStore, ['songList']),
     ...mapWritableState(useToastStore, ['toastCount']),
@@ -55,25 +56,24 @@ export default {
         const albumData = Snapshot.data().items.filter((item) => {
           return item.albumSinger === this.$route.params.albumSinger
         })
+
         this.albumInfo = { ...albumData[0] }
       } catch (error) {}
     },
-    palySong(song) {
-      this.newSong(song)
+    palySong() {
+      this.newSong(this.songList[0])
       this.isPlaying = true
     },
     formatIndex: helper.formatIndex
   },
-  mounted() {
-    this.getAlbumSongs()
+  async mounted() {
+    await this.getAlbumSongs()
     this.songList = this.songs
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
     this.toastCount = 0
   },
-  beforeMount() {
-    if (Object.keys(this.albumInfo).length === 0) {
-      this.getAlbumInfo()
-    }
+  async beforeMount() {
+    await this.getAlbumInfo()
   }
 }
 </script>
@@ -99,7 +99,7 @@ export default {
         <div class="md:order-2 flex-1 px-3 md:px-14">
           <div class="md:flex items-center border-b-2 border-[#e6dbdb21] pb-4">
             <div class="flex md:flex-row flex-col justify-center">
-              <div class="md:max-w-64 mx-auto">
+              <div class="mx-auto" :class="albumPageImgClass" @click.prevent="palySong">
                 <img :src="albumInfo.albumImg" alt="" />
               </div>
               <div class="md:ml-10 md:mt-5 text-center md:text-left">

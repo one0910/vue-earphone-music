@@ -169,7 +169,7 @@ export default {
         <vee-field
           as="select"
           name="albumGenre"
-          class="block w-full truncate py-1.5 px-3 mb-4 bg-white/10 text-zinc-100 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
+          class="block h-10 w-full truncate px-3 mb-4 bg-white/10 text-zinc-100 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
           v-model="albumMakeTemp.albumGenre"
         >
           <option class="bg-gray-700 text-zinc-100" value="Acoustic">原音樂 Acoustic</option>

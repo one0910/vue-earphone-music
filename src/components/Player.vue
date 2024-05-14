@@ -1,20 +1,41 @@
 <script>
 import { usePlayerStore } from '@/stores/player'
 import { mapActions, mapState } from 'pinia'
+import helper from '@/includes/helper'
 
 export default {
   name: 'Player',
+  data() {
+    return {
+      sliderValue: 0, // 滑块的初始值
+      timerId: null // 定时器ID
+    }
+  },
   computed: {
-    ...mapState(usePlayerStore, ['playing', 'seek', 'duration', 'playProgress', 'current_song'])
+    ...mapState(usePlayerStore, [
+      'playing',
+      'seek',
+      'duration',
+      'playProgress',
+      'current_song',
+      'hiddenClass'
+    ])
   },
   methods: {
     ...mapActions(usePlayerStore, ['toggleAudio', 'updateSeek', 'forward_backPlay'])
+  },
+  watch: {
+    seek() {
+      if (this.seek) {
+        this.sliderValue = helper.convertPercentageToNumber(this.playProgress)
+      }
+    }
   }
 }
 </script>
 
 <template>
-  <div :class="{ hidden: $route.name === 'admin-backStage' }">
+  <div :class="hiddenClass || { hidden: $route.name === 'admin-backStage' }">
     <div
       class="fixed bottom-0 left-0 bg-zinc-800 pl-4 py-2 w-full text-zinc-200 shadow-[0_0_5px_rgba(255,255,255,1)] z-10"
       :class="{ 'pr-4': !current_song.album }"
@@ -30,20 +51,18 @@ export default {
             <!-- Current Position -->
             <div class="player-currenttime">{{ seek }}</div>
             <!-- Scrub Container  -->
-            <div
-              class="w-full h-2 rounded bg-gray-200 relative cursor-pointer"
-              @click.prevent="updateSeek"
-            >
-              <!-- Player Ball -->
+            <div class="relative w-full">
+              <input
+                id="large-range"
+                type="range"
+                class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-lg dark:bg-gray-700"
+                max="100"
+                min="0"
+                v-model="sliderValue"
+                @change="updateSeek($event)"
+              />
               <span
-                class="absolute -top-2.5 -ml-2.5 text-gray-700 text-lg"
-                :style="{ left: playProgress }"
-              >
-                <i class="fas fa-circle"></i>
-              </span>
-              <!-- Player Progress Bar-->
-              <span
-                class="block h-2 rounded bg-gradient-to-r from-rose-500 to-pink-500"
+                class="absolute top-[10px] left-0 block h-2 rounded bg-gradient-to-r from-rose-500 to-pink-500"
                 :style="{ width: playProgress }"
               ></span>
             </div>
@@ -119,4 +138,23 @@ export default {
   </div>
 </template>
 
-<style></style>
+<style lang="scss" scoped>
+input[type='range']::-webkit-slider-thumb {
+  /* border: 15px dotted rgb(22, 48, 143); */
+  -webkit-appearance: none;
+  position: relative; /* 設為相對位置，為了前後區塊的絕對位置而設定 */
+  width: 20px;
+  height: 20px;
+  background: rgb(55 65 81 / var(--tw-text-opacity));
+  border-radius: 50%;
+  transition: 0.2s;
+  z-index: 1;
+}
+
+input[type='range']::-webkit-slider-thumb:active {
+  border: 25px solid rgb(55 65 81 / var(--tw-text-opacity));
+  @media screen and (max-width: 768px) {
+    border: 30px solid rgb(55 65 81 / var(--tw-text-opacity));
+  }
+}
+</style>

@@ -11,10 +11,11 @@ export const usePlayerStore = defineStore('player', {
     duration: "00:00",
     playProgress: '0% ',
     playingIndex: 0,
-    pauseCurrentSong: {}
+    pauseCurrentSong: {},
   }),
   actions: {
     async newSong(song) {
+      console.log('song => ', song)
       /*透過instanceof的功能來確認所定義的sound狀態是否為Howl這個實例，
       若是則代表我們正在播放同樣的音樂，則可以用howler的unload功能來重新播放音樂*/
       if (this.sound instanceof Howl) {
@@ -89,23 +90,52 @@ export const usePlayerStore = defineStore('player', {
       this.current_song = this.songList[this.playingIndex]
     },
     deleteSong(index) {
-      if (this.sound.playing) {
-        this.sound.stop()
-      }
-
-      this.songList.splice(index, 1)
       if (this.songList.length === 0) {
-        this.current_song = {}
-      } else {
-        this.current_song = this.songList[0]
+        return
       }
+      let songToDelete = this.songList[index];
 
+      /*這裡的只針對播放清單做deleteSong()，所以刪除前先檢查目前播放的歌是否為播放清單裡的歌*/
+      if (songToDelete.docID === this.current_song.docID) {
+        /*如果目前播放的歌在清單裡面，則先停止再刪除*/
+        this.sound.stop()
+        this.songList.splice(index, 1);
+        /*然後更新目前正在播放的歌曲*/
+        if (this.songList.length > 0) {
+          this.current_song = this.songList[0];
+        } else {
+          /*若是清單裡沒有任何歌曲，則將howler Instance desrtory*/
+          this.sound.unload()
+          this.sound = {}
+          this.current_song = {};
+        }
+      } else {
+        // 若目前播放的歌曲沒有在清單裡，一直進行刪除
+        this.songList.splice(index, 1);
+        if (this.songList.length > 0) {
+          /*為了避免因更新目前歌曲時直接更換到play bar裡的圖片, 
+          所以另外再建一個favCoverImg來儲存要更換歌曲的圖片,用favCoverImg來代表現在清單頁面的封面圖
+          */
+          this.current_song = {
+            ...this.current_song,
+            favCoverImg: this.songList[0].coverImg
+          };
+        }
+      }
     },
 
     progress() {
+      if (!this.sound.seek) {
+        return
+      }
+
       this.seek = helper.formatTime(this.sound.seek())
       this.duration = helper.formatTime(this.sound.duration())
       this.playProgress = `${(this.sound.seek() / this.sound.duration()) * 100}%`
+
+
+      // console.log('this.progressTime => ', this.progressTime)
+
 
       /*由於requestAnimationFrame()只能執行一次，而我們需要歌曲的已播放時間這樣不斷更新時間的資料
         因此可以用this.sound.playing()的方式來持續監聽歌曲是否有在播放中，若是有的話再次的去執行requestAnimationFrame()
@@ -114,22 +144,24 @@ export const usePlayerStore = defineStore('player', {
         requestAnimationFrame(this.progress)
       }
     },
-    updateSeek(event) {
+    updateSeek($event) {
+      let percentage = 0
+      const sliderValue = $event.target.value
       // console.log('event.currentTarget => ', event.currentTarget)
       if (!this.sound.playing) {
         return
       }
-      /*由於音樂播放的進度音樂條的記算較為複雜，請搭配"同音樂條的寬度及座標計算.jpg"連同下面的說明一起對照觀看
-        該音樂條元素的event，透過getBoundingClientRect()可以取得該元素的相對於視窗的相關座標，如下所示，我們要取得x及width
-        x:整個視窗從最左邊0到該元素的水平座標
-        width:它就是該元素的offsetWidth寬度，就是該元表包含border的整個寬度
-        event.clientX:它是點擊擊元素後，可以取得的相對座標，也就是整個視窗從最左邊到被點擊到該元素位置間的水平座標
-      */
+
 
       const { x, width } = event.currentTarget.getBoundingClientRect()
       const clickX = event.clientX - x
-      const percentage = clickX / width
+      if (sliderValue) {
+        percentage = Number(sliderValue) / 100
+      } else {
+        percentage = clickX / width
+      }
       const seconds = this.sound.duration() * percentage
+
       this.sound.seek(seconds)
       this.sound.once('seek', this.progress)
 
@@ -142,5 +174,21 @@ export const usePlayerStore = defineStore('player', {
       }
       return false
     },
+    hiddenClass: (state) => {
+      return (!state.sound.play) ? 'hidden' : ''
+    },
+    albumPageImgClass: (state) => {
+      let isCurrentSongInList
+      if (Object.keys(state.current_song).length !== 0) {
+        isCurrentSongInList = state.songList.some(song => {
+          return song.docID === state.current_song.docID
+        })
+      }
+      if (isCurrentSongInList) {
+        return 'md:max-w-64 w-auto'
+      } else {
+        return 'max-w-64'
+      }
+    }
   },
 })

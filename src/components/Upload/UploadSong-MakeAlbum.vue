@@ -33,6 +33,7 @@ export default {
     ...mapState(useUserStore, ['uid']),
     canBeSubmit() {
       if (
+        this.uid == '' ||
         this.albumMakeTemp.albumSinger == '' ||
         this.albumMakeTemp.albumName == '' ||
         this.albumMakeTemp.albumDesc == '' ||
@@ -229,6 +230,12 @@ export default {
 
     formatIndex: helper.formatIndex,
     formatSongName: helper.formatSongName
+  },
+  mounted() {
+    if (!this.uid) {
+      this.toggle = !this.toggle
+      this.message = `請註冊並登入，即可製作自己的專輯`
+    }
   }
 }
 </script>
@@ -281,7 +288,10 @@ export default {
           ></div>
         </div>
       </div>
-      <div class="flex justify-end">
+      <div class="flex justify-between">
+        <div :class="{ 'opacity-0': uid }">
+          <span class="text-sm text-pink-600">您還未註冊及登入，無法完成專輯製作</span>
+        </div>
         <button
           v-if="uploadAvilable"
           type="submit"

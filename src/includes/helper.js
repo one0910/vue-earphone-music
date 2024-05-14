@@ -9,6 +9,11 @@ export default {
     /*(seconds < 10) ? '0' : '' 這公式用來過濾超過10的秒數，秒數小於10的，一律顯示0，超過10的則只顯示空字串，其實也就是不顯示*/
     return `${minutes}:${(seconds < 10) ? '0' : ''}${seconds}`
   },
+  convertPercentageToNumber(percentageString) {
+    if (!percentageString) return 0; // 如果输入为空，返回0
+    // 移除字符串中的 '%' 字符并转换为浮点数
+    return parseFloat(percentageString.replace('%', ''));
+  },
   RangeInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   },

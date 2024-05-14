@@ -123,9 +123,12 @@ export default {
 
     /*要修改的專輯資料更新到song cllection 相對應的document*/
     async updateSongData() {
+      console.log('4.1 => ')
+      console.log('this.albumEditTemp => ', this.albumEditTemp)
       const snapshot = await songsCollection
         .where('albumID', '==', this.albumEditTemp.albumSongs[0].albumID)
         .get()
+      console.log('snapshot => ', snapshot)
       snapshot.forEach((document) => {
         document.ref.update({
           display_name: this.albumEditTemp.albumSinger,
@@ -148,8 +151,13 @@ export default {
     },
 
     deleteAlbumSong(songUrl, docID, index) {
-      this.deleteAlbumSongs.push({ songUrl, docID })
-      this.albumEditTemp.albumSongs.splice(index, 1)
+      if (this.albumEditTemp.albumSongs.length > 1) {
+        this.deleteAlbumSongs.push({ songUrl, docID })
+        this.albumEditTemp.albumSongs.splice(index, 1)
+      } else {
+        this.toggle = !this.toggle
+        this.message = `至少需保留一個音樂檔`
+      }
     },
     async deleteSongFromStorage() {
       const delSongs = this.deleteAlbumSongs
@@ -225,14 +233,21 @@ export default {
 
     async submitHandler() {
       this.showLoading = true
+      console.log('1 => ')
       this.albumEditTemp.albumSingerImg =
         (await this.imageHandler('singerImg')) || this.albumEditTemp.albumSingerImg
+      console.log('2 => ')
       this.albumEditTemp.albumImg =
         (await this.imageHandler('albumImg')) || this.albumEditTemp.albumImg
+      console.log('3 => ')
       await this.updateAlbumData()
+      console.log('4 => ')
       await this.updateSongData()
+      console.log('5 => ')
       await this.storeToSong()
+      console.log('6 => ')
       await this.deleteSongFromStorage()
+      console.log('7 => ')
       window.location.reload()
     },
 

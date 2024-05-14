@@ -29,15 +29,6 @@ export default {
         this.userLoggedIn = true
         this.userName = auth.currentUser.displayName
         this.uid = auth.currentUser.uid
-        this.getFavSongList()
-      }
-    },
-    async getFavSongList() {
-      try {
-        const favSongListSnapshot = await favoriteSongListCollection.doc(this.uid).get()
-        this.favSongList = favSongListSnapshot.data()['favSongLists']
-      } catch (error) {
-        console.log('error => ', error)
       }
     },
     toggleAuthModal() {
@@ -46,6 +37,8 @@ export default {
       } else {
         this.signOut()
         this.$router.push({ name: 'home' })
+        this.hamburgerChange = false
+        this.menu_hamberger_css = ''
       }
     },
     clickHamberMenu() {
@@ -94,6 +87,11 @@ export default {
     userLoginCheck(event) {
       this.enterPage('該功能需登入才可使用，可免費註冊使用', event.target.innerText)
     },
+    enterMakeAlbumPage() {
+      this.$router.push({ name: 'makeAlbum' })
+      this.hamburgerChange = false
+      this.menu_hamberger_css = ''
+    },
     loginMemberStage() {
       if (!this.userLoggedIn) {
         this.isOpen = !this.isOpen
@@ -130,11 +128,11 @@ export default {
           <span v-if="!userLoggedIn">登入/註冊</span>
           <span v-else>登出</span>
         </div>
+        <div class="menu-item group" @click.prevent="enterMakeAlbumPage">
+          <span>製作自己的專輯</span>
+        </div>
         <div class="menu-item" @click.prevent="userLoginCheck">
           <span>我的播放清單</span>
-        </div>
-        <div class="menu-item group" @click.prevent="userLoginCheck">
-          <span>製作自己的專輯</span>
         </div>
         <div class="menu-item" @click.prevent="loginMemberStage">
           <span>會員管理</span>
@@ -172,17 +170,17 @@ export default {
             <span v-else>登出</span>
           </div>
           <div
+            id="ticket-menu-item"
+            class="group relative h-full cursor-pointer text-pink-200 transition-colors hover:bg-white/10 hover:text-zinc-200"
+            @click.prevent="enterMakeAlbumPage"
+          >
+            <div class="p-4 text-center font-bold">製作自己的專輯</div>
+          </div>
+          <div
             class="relative flex h-full cursor-pointer items-center justify-center p-4 font-bold hover:text-zinc-200 transition-colors hover:bg-white/10"
             @click.prevent="userLoginCheck"
           >
             <span>我的播放清單</span>
-          </div>
-          <div
-            id="ticket-menu-item"
-            class="group relative h-full cursor-pointer text-pink-200 transition-colors hover:bg-white/10 hover:text-zinc-200"
-            @click.prevent="userLoginCheck"
-          >
-            <div class="p-4 text-center font-bold">製作自己的專輯</div>
           </div>
           <div
             class="relative flex h-full cursor-pointer items-center justify-center p-4 font-bold hover:text-zinc-200 transition-colors hover:bg-white/10"

@@ -37,7 +37,15 @@ export default {
   methods: {
     ...mapActions(useAlertConfirmStore, ['delFavSongItemDoc']),
     ...mapActions(usePlayerStore, ['deleteSong']),
-    getSongs() {
+    async getFavSongList() {
+      try {
+        const favSongListSnapshot = await favoriteSongListCollection.doc(this.uid).get()
+        this.favSongList = favSongListSnapshot.data()['favSongLists']
+      } catch (error) {
+        console.log('error => ', error)
+      }
+    },
+    async getSongs() {
       try {
         this.favSongList.forEach(async (document) => {
           const Snapshot = await songsCollection.doc(document).get()
@@ -59,7 +67,7 @@ export default {
       }
     }
   },
-  mounted() {
+  async mounted() {
     /*1.先清空play store裡的播放清單資料，也就是初始化，
     下面步驟3去getSongs取得清單時，會再把清單倒回到songList裡*/
     this.songList = []
@@ -71,9 +79,9 @@ export default {
         this.$refs.listRef.style.height = '418px'
       }
     }
-    // 3.去後端取得播放清單
-    this.getSongs()
 
+    await this.getFavSongList()
+    await this.getSongs()
     /*4. 由於vue的watch無法監測陣列資料的變化(例如:splice、push)，
     所以使用watchEffect來深度監控favSongList這個陣列的變化*/
     watchEffect(() => {
@@ -122,14 +130,19 @@ export default {
       if (Object.keys(this.current_song).length === 0) {
         this.currentSongCoverImg = logoImage
       } else {
-        this.currentSongCoverImg = this.current_song.coverImg
+        this.currentSongCoverImg = this.current_song.favCoverImg
+          ? this.current_song.favCoverImg
+          : this.current_song.coverImg
       }
     }
   }
 }
 </script>
 <template>
-  <main class="text-zinc-200 bg-zinc-900 mt-[55px] pt-[10px] pb-[10px] mb-[90px] relative">
+  <main
+    class="text-zinc-200 bg-zinc-900 mt-[63px] relative"
+    :class="{ 'mb-[120px]': current_song.album }"
+  >
     <AlertDeleteConfirm></AlertDeleteConfirm>
     <div
       class="bg-cover bg-center md:bg-fixed bg-no-repeat md:bg-cover h-full"

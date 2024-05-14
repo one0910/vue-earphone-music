@@ -40,17 +40,23 @@ export default {
           await albumRef.update({ items })
         }
 
+        const albumSinger = this.albumMakeTemp.albumSinger
         /*再來將Store裡的資料重新初始化*/
         this.initalbumMakeTemp()
-        /*最後回到首頁*/
-        this.$router.push({ name: 'home' })
+        /*最後前往專輯頁看自己的專輯*/
+        this.$router.push({
+          name: 'album',
+          params: { gener: 'fundraising', albumSinger }
+        })
       } catch (error) {
         console.log('error => ', error)
       }
     },
     goToHome() {
       this.initalbumMakeTemp()
-      this.$router.push({ name: 'home' })
+      this.$router.push({
+        name: 'home'
+      })
     }
   }
 }
@@ -69,7 +75,7 @@ export default {
       <div class="relative py-4 text-center bg-zinc-800/90 rounded-lg shadow dark:bg-gray-800">
         <!-- 視窗上面的打勾符號 -->
         <svg
-          class="text-green-400 dark:text-gray-500 w-7 h-7 mb-1 mx-auto"
+          class="text-green-400 w-7 h-7 mb-1 mx-auto"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           fill="currentColor"
