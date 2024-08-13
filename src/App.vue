@@ -2,17 +2,45 @@
 import HeaderVue from '@/components/HeaderVue.vue'
 import Player from '@/components/Player.vue'
 import Auth from '@/components/Auth/Auth.vue'
+import { useUserStore } from '@/stores/user'
+import { useCommonStore } from './stores/common'
+import { mapState, mapWritableState } from 'pinia'
+import Loading from '@/components/Loading.vue'
+import initialization from '@/includes/initialization'
 
 export default {
+  data() {
+    return {
+      showLoading: true
+    }
+  },
   components: {
     Auth,
     HeaderVue,
-    Player
+    Player,
+    Loading
+  },
+  computed: {
+    ...mapState(useUserStore, ['uid']),
+    ...mapWritableState(useCommonStore, ['isMoblieScreen'])
+  },
+  mounted() {
+    initialization(this, (setLanguageDone = false) => {
+      setLanguageDone && (this.showLoading = false)
+    })
+
+    // const mediaQuery = window.matchMedia('(max-width: 768px)')
+    // mediaQuery.addEventListener('change', function (event) {
+    //   console.log('event => ', event.matches)
+    //   this.isMoblieScreen = event.matches
+    //   console.log('this.isMoblieScreen => ', this.isMoblieScreen)
+    // })
   }
 }
 </script>
 
 <template>
+  <Loading :isShow="showLoading"></Loading>
   <HeaderVue></HeaderVue>
   <RouterView v-slot="{ Component }">
     <transition name="fade">

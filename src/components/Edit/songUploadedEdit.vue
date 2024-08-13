@@ -123,12 +123,10 @@ export default {
 
     /*要修改的專輯資料更新到song cllection 相對應的document*/
     async updateSongData() {
-      console.log('4.1 => ')
       console.log('this.albumEditTemp => ', this.albumEditTemp)
       const snapshot = await songsCollection
         .where('albumID', '==', this.albumEditTemp.albumSongs[0].albumID)
         .get()
-      console.log('snapshot => ', snapshot)
       snapshot.forEach((document) => {
         document.ref.update({
           display_name: this.albumEditTemp.albumSinger,
@@ -143,7 +141,8 @@ export default {
       files.forEach((file) => {
         if (file.type !== 'audio/mpeg') {
           this.toggle = !this.toggle
-          this.message = `${file.name}非mp3檔，請重傳`
+          // this.message = `${file.name}非mp3檔，請重傳`
+          this.message = this.$t('alertMsg.non_mp3_file_alert', { file: file.name })
           return
         }
         this.uploadsNesSongs.push(file)
@@ -156,7 +155,7 @@ export default {
         this.albumEditTemp.albumSongs.splice(index, 1)
       } else {
         this.toggle = !this.toggle
-        this.message = `至少需保留一個音樂檔`
+        this.message = this.$t('alertMsg.at_leaset_one_alert')
       }
     },
     async deleteSongFromStorage() {
@@ -233,21 +232,14 @@ export default {
 
     async submitHandler() {
       this.showLoading = true
-      console.log('1 => ')
       this.albumEditTemp.albumSingerImg =
         (await this.imageHandler('singerImg')) || this.albumEditTemp.albumSingerImg
-      console.log('2 => ')
       this.albumEditTemp.albumImg =
         (await this.imageHandler('albumImg')) || this.albumEditTemp.albumImg
-      console.log('3 => ')
       await this.updateAlbumData()
-      console.log('4 => ')
       await this.updateSongData()
-      console.log('5 => ')
       await this.storeToSong()
-      console.log('6 => ')
       await this.deleteSongFromStorage()
-      console.log('7 => ')
       window.location.reload()
     },
 
@@ -276,7 +268,7 @@ export default {
   <toastMessage :toggle="toggle" :message="message" :success="false"></toastMessage>
   <div class="md:order-2 flex-1 rounded border border-gray-200/70 px-3">
     <div class="px-1 pt-6 pb-3 font-bold border-b border-gray-200 flex justify-between">
-      <span class="card-title">已上傳的歌曲</span>
+      <span class="card-title">{{ $t('memberMamagePage.editAlbum.uploaded_song_list') }}</span>
       <i class="fa fa-upload float-right text-rose-400 text-xl"></i>
     </div>
     <div class="mt-3">
@@ -331,7 +323,7 @@ export default {
           class="w-auto py-1 px-3 rounded text-zinc-100 bg-rose-500 w-30 hover:bg-rose-600 disabled:bg-zinc-700 disabled:text-zinc-400"
           @click="submitHandler"
         >
-          確定修改
+          {{ $t('button.confirm') }}
         </button>
       </div>
     </div>

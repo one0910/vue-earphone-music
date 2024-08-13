@@ -44,7 +44,8 @@ export default {
       this.delFavSong['index'] = index
       this.delFavSong['docID'] = docID
       this.fireShowAlertConfirm({
-        msg: `是否將${this.favSong.modified_name}從清單中刪除`
+        msg: this.$t('alertMsg.delete_favsong', { favsongName: this.favSong.modified_name })
+        // msg: `是否將${this.favSong.modified_name}從清單中刪除`
       })
     }
   },

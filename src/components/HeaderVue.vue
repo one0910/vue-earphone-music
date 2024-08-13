@@ -2,8 +2,10 @@
 import { mapWritableState, mapActions, mapState } from 'pinia'
 import { useUserStore } from '@/stores/user'
 import { useModalStore } from '@/stores/modal'
-import { auth, favoriteSongListCollection } from '@/includes/firebase'
+import { useCommonStore } from '@/stores/common'
+import { auth } from '@/includes/firebase'
 import toastMessage from '@/components/Alert/toastMessage.vue'
+import languageIcon from '@/assets/images/language-icon.png'
 
 export default {
   data() {
@@ -12,13 +14,15 @@ export default {
       menu_hamberger_css: '',
       toggle: false,
       message: '',
-      FavSongList: []
+      FavSongList: [],
+      languageIcon
     }
   },
   components: {
     toastMessage
   },
   computed: {
+    ...mapWritableState(useCommonStore, ['language']),
     ...mapWritableState(useUserStore, ['userLoggedIn', 'userName', 'uid', 'favSongList']),
     ...mapWritableState(useModalStore, ['isOpen'])
   },
@@ -61,14 +65,16 @@ export default {
         let routeName
         switch (menuLinkText) {
           case '我的播放清單':
+          case 'Play List':
             routeName = 'favSongList'
             break
           case '製作自己的專輯':
+          case 'Make Own Album':
             routeName = 'makeAlbum'
             break
           default:
             this.toggle = !this.toggle
-            this.message = '沒找到指定的路由'
+            this.message = this.$t('ErroMsg.no_available_route')
             return
         }
 
@@ -85,7 +91,7 @@ export default {
       navigate(menuLinkText)
     },
     userLoginCheck(event) {
-      this.enterPage('該功能需登入才可使用，可免費註冊使用', event.target.innerText)
+      this.enterPage(this.$t('ErroMsg.feature_unavailable_msg'), event.target.innerText)
     },
     enterMakeAlbumPage() {
       this.$router.push({ name: 'makeAlbum' })
@@ -102,6 +108,11 @@ export default {
       }
     }
   },
+  watch: {
+    language(newVal, oldVal) {
+      this.$i18n.locale = newVal
+    }
+  },
   mounted() {
     this.getAuth()
   }
@@ -116,7 +127,7 @@ export default {
         <img src="../assets/images/logo-inverted.png" width="50" alt="" />
         <div class="font-bold text-2xl">
           earphone:
-          <span class="text-sky-900">MUISC</span>
+          <span class="text-sky-900 text-xl md:text-2xl">MUISC</span>
         </div>
       </div>
 
@@ -125,22 +136,32 @@ export default {
       <div class="flex-1 md:flex hidden items-center justify-end">
         <div class="menu-item" @click.prevent="toggleAuthModal">
           <i class="fas fa-user pr-2"></i>
-          <span v-if="!userLoggedIn">登入/註冊</span>
-          <span v-else>登出</span>
+          <span v-if="!userLoggedIn">{{ $t('menu.sign_in_sign_up') }}</span>
+          <span v-else>{{ $t('menu.logout') }}</span>
         </div>
         <div class="menu-item group" @click.prevent="enterMakeAlbumPage">
-          <span>製作自己的專輯</span>
+          <span>{{ $t('menu.make_your_own_album') }}</span>
         </div>
         <div class="menu-item" @click.prevent="userLoginCheck">
-          <span>我的播放清單</span>
+          <span>{{ $t('menu.play_list') }}</span>
         </div>
         <div class="menu-item" @click.prevent="loginMemberStage">
-          <span>會員管理</span>
+          <span>{{ $t('menu.member_managemnet') }}</span>
         </div>
       </div>
 
       <!-- *******************手機選單************************** -->
-      <div class="block md:hidden ml-auto p-4 my-auto cursor-pointer">
+      <div class="flex items-center">
+        <select
+          class="truncate bg-transparent pb-2 pt-1 pl-2 pr-7 md:pr-8 rounded border border-gray-300 appearance-none"
+          :style="`background-image: url(${languageIcon})`"
+          v-model="language"
+        >
+          <option class="bg-pink-500" value="en">English</option>
+          <option class="bg-pink-500" value="zh">中文</option>
+        </select>
+      </div>
+      <div class="block md:hidden ml-auto p-3 my-auto cursor-pointer">
         <div
           id="mobile-menu-button"
           class="group peer"
@@ -166,27 +187,27 @@ export default {
             @click.prevent="toggleAuthModal"
           >
             <i class="fas fa-user pr-2"></i>
-            <span v-if="!userLoggedIn">登入/註冊</span>
-            <span v-else>登出</span>
+            <span v-if="!userLoggedIn">{{ $t('menu.sign_in_sign_up') }}</span>
+            <span v-else>{{ $t('menu.logout') }}</span>
           </div>
           <div
             id="ticket-menu-item"
             class="group relative h-full cursor-pointer text-pink-200 transition-colors hover:bg-white/10 hover:text-zinc-200"
             @click.prevent="enterMakeAlbumPage"
           >
-            <div class="p-4 text-center font-bold">製作自己的專輯</div>
+            <div class="p-4 text-center font-bold">{{ $t('menu.make_your_own_album') }}</div>
           </div>
           <div
             class="relative flex h-full cursor-pointer items-center justify-center p-4 font-bold hover:text-zinc-200 transition-colors hover:bg-white/10"
             @click.prevent="userLoginCheck"
           >
-            <span>我的播放清單</span>
+            <span>{{ $t('menu.play_list') }}</span>
           </div>
           <div
             class="relative flex h-full cursor-pointer items-center justify-center p-4 font-bold hover:text-zinc-200 transition-colors hover:bg-white/10"
             @click.prevent="loginMemberStage"
           >
-            <span>會員管理</span>
+            <span>{{ $t('menu.member_managemnet') }}</span>
           </div>
         </div>
       </div>
@@ -194,4 +215,12 @@ export default {
   </header>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+select {
+  background-position:
+    right 0.5em top 50%,
+    0 0;
+  background-size: 16px;
+  background-repeat: no-repeat, repeat;
+}
+</style>

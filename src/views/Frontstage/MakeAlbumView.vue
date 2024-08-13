@@ -15,7 +15,7 @@ export default {
         <div class="col-span-1">
           <div class="bg-zinc-900 rounded border border-gray-200 relative flex flex-col">
             <div class="px-6 pt-5 pb-3 font-bold border-b border-gray-200">
-              <span class="card-title">開始製作專輯</span>
+              <span class="card-title">{{ $t('makeAlbumPage.start_to_make_album_title') }}</span>
               <i class="fa fa-music float-right text-rose-400 text-xl"></i>
             </div>
             <UploadImageMakeAlbum></UploadImageMakeAlbum>
@@ -24,7 +24,7 @@ export default {
         <div class="col-span-2 mt-3 md:mt-0">
           <div class="bg-zinc-900 rounded border border-gray-200 relative flex flex-col">
             <div class="px-6 pt-5 pb-3 font-bold border-b border-gray-200">
-              <span class="card-title">您要上傳的歌曲</span>
+              <span class="card-title">{{ $t('makeAlbumPage.upload_your_song_title') }}</span>
               <i class="fa fa-upload float-right text-rose-400 text-xl"></i>
             </div>
             <UploadSongMakeAlbum></UploadSongMakeAlbum>

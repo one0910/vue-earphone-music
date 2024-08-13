@@ -1,4 +1,6 @@
 import device from 'current-device'
+import i18n from './i18n'
+
 export default {
   formatTime(time) {
     const minutes = Math.floor(time / 60) || 0
@@ -41,12 +43,13 @@ export default {
   uploadImg($event) {
     return new Promise((resolve, reject) => {
       const file = $event.target.files[0]
+
       if (!file) {
         return
       }
       const validTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/bmp']
       if (!validTypes.includes(file.type)) {
-        resolve({ showAlert: true, message: `請上傳圖片檔，如jpg、png、bmp檔等` })
+        resolve({ showAlert: true, message: i18n.global.t("alertMsg.file_extension_check_alert") })
 
       }
       resolve({ file })

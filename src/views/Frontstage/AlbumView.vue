@@ -4,6 +4,16 @@ import { useAlbumInfoStore } from '@/stores/albumInfo'
 import { usePlayerStore } from '@/stores/player'
 import { useToastStore } from '@/stores/toast'
 import { songsCollection, albumsCollection } from '@/includes/firebase'
+import {
+  transSingerDesc,
+  transAlbumDesc,
+  transSingerName,
+  transAlbumName,
+  transSingerName_fund,
+  transSingerDesc_fund,
+  transAlbumName_fund,
+  transAlbumDesc_fund
+} from '@/helper/transform.language'
 import SongItem from '@/components/song/SongItem.vue'
 import helper from '@/includes/helper'
 import memberImage from '@/assets/images/logo.png'
@@ -29,6 +39,38 @@ export default {
         return this.albumInfo.albumSingerImg
       } else {
         return 'https://i.imgur.com/arYdJI6.png'
+      }
+    },
+    signerName() {
+      const { albumSinger, type, temp } = this.albumInfo
+      if (type === 'member_fundraising') {
+        return transSingerName_fund(albumSinger, type, temp)
+      } else {
+        return transSingerName(albumSinger)
+      }
+    },
+    signerDescription() {
+      const { albumSinger, albumSingerDesc, type, temp } = this.albumInfo
+      if (type === 'member_fundraising') {
+        return transSingerDesc_fund(albumSinger, albumSingerDesc, type, temp)
+      } else {
+        return transSingerDesc(albumSinger, albumSingerDesc)
+      }
+    },
+    albumName() {
+      const { albumName, type, temp } = this.albumInfo
+      if (type === 'member_fundraising') {
+        return transAlbumName_fund(albumName, type, temp)
+      } else {
+        return transAlbumName(albumName)
+      }
+    },
+    albumDescription() {
+      const { albumName, albumDesc, type, temp } = this.albumInfo
+      if (type === 'member_fundraising') {
+        return transAlbumDesc_fund(albumName, albumDesc, type, temp)
+      } else {
+        return transAlbumDesc(albumName, albumDesc)
       }
     }
   },
@@ -57,7 +99,9 @@ export default {
           return item.albumSinger === this.$route.params.albumSinger
         })
 
-        this.albumInfo = { ...albumData[0] }
+        this.albumInfo = {
+          ...albumData[0]
+        }
       } catch (error) {}
     },
     palySong() {
@@ -87,10 +131,10 @@ export default {
             <img class="rounded-full" :src="albumSingerImg" alt="" />
           </div>
           <div class="text-center mt-6 px-5">
-            <p class="text-lg">歌手</p>
-            <p class="text-2xl pb-3">{{ albumInfo.albumSinger }}</p>
+            <p class="text-lg">{{ $t('singer') }}</p>
+            <p class="text-2xl pb-3">{{ signerName }}</p>
             <p class="text-zinc-400 text-left">
-              {{ albumInfo.albumSingerDesc }}
+              {{ signerDescription }}
             </p>
           </div>
         </div>
@@ -104,11 +148,11 @@ export default {
               </div>
               <div class="md:ml-10 md:mt-5 text-center md:text-left">
                 <p class="text-[25px] tracking-widest leading-loose text-white">
-                  {{ albumInfo.albumName }}
+                  {{ albumName }}
                 </p>
-                <p class="md:pb-5">{{ albumInfo.albumSinger }}</p>
+                <p class="md:pb-5">{{ signerName }}</p>
                 <p class="md:block hidden max-w-80">
-                  {{ albumInfo.albumDesc }}
+                  {{ albumDescription }}
                 </p>
               </div>
             </div>

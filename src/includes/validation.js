@@ -7,13 +7,19 @@ import {
   required, min, max, alpha_spaces, email,
   min_value as minVal, max_value as maxVal, confirmed, not_one_of as excluded,
 } from '@vee-validate/rules';
+import {
+  transRequiredField,
+  transMinField,
+  transMaxField
+} from '@/helper/transform.language';
+
 
 export const VeeValidatePlugin = {
   install(app) {
+
     app.component('VeeForm', VeeForm);
     app.component('VeeField', VeeField);
     app.component('ErrorMessage', ErrorMessage);
-
     defineRule('required', required);
     defineRule('tos', required);
     defineRule('min', min);
@@ -31,24 +37,10 @@ export const VeeValidatePlugin = {
       以這專案為例，當ErrorMessage裡的訊息被觸發時，它會回傳該它所對應欄位的相關資訊，如下所示context.field就是schema裡所定義的key
       */
 
-        /*在這裡我將傳送來的conetext field做一下中英文的轉換，讓顯示比較確確*/
-        const transferField = () => {
-          const field = {
-            'albumSinger': '歌手名稱',
-            'albumName': '專輯名稱',
-            'albumCoverImgUrl': '專輯封面',
-            'email': 'email',
-            'password': '密碼',
-            'albumGenre': '專輯類型',
-            'albumDesc': '專輯描述',
-          }[context.field]
-          return field || context.field
-        }
-
         const messages = {
-          required: `${transferField()}欄位不可為空白`,
-          min: `${transferField()}欄位所輸入文字長度太短`,
-          max: `${transferField()}欄位所輸入文字長度太長`,
+          required: transRequiredField(context.field),
+          min: transMinField(context.field),
+          max: transMaxField(context.field),
           alpha_spaces: `The field ${context.field} may only contain alphabetic characters and spaces.`,
           email: `請使用有效的${context.field}格式`,
           min_value: `The field ${context.field} is too low.`,

@@ -51,7 +51,6 @@ export default {
       this.tempCropperFile = { file, imageType: 'album' }
     },
     isCloseCropper(setClose = {}) {
-      console.log('setClose => ', setClose)
       const { isClose, file, imgUrl, imgType } = setClose
       if (imgType === 'signer') {
         this.uploadSignerImgTempUrl = imgUrl
@@ -85,7 +84,7 @@ export default {
   ></CropperImag>
   <div class="md:order-1 md:w-[50%] w-full rounded border border-gray-200/70 px-3">
     <div class="px-1 pt-6 pb-3 font-bold border-b border-gray-200 flex justify-between">
-      <span class="card-title">專輯資訊</span>
+      <span class="card-title">{{ $t('memberMamagePage.editAlbum.album_info') }}</span>
       <i class="fa fa-music float-right text-rose-400 text-xl"></i>
     </div>
     <div class="flex justify-between gap-5 mt-3">
@@ -97,14 +96,14 @@ export default {
           :src="uploadSignerImgTempUrl ? uploadSignerImgTempUrl : albumEditTemp.albumSingerImg"
           alt=""
         />
-        <h6 class="absolute top-1 left-2 text-rose-500">歌手照片</h6>
+        <h6 class="absolute top-1 left-2 text-rose-500">{{ $t('makeAlbumPage.singer_photo') }}</h6>
       </label>
       <label
         class="relative flex justify-center w-64 px-1 py-1 rounded text-center cursor-pointer border border-dashed border-gray-400 text-gray-400 transition duration-00 hover:text-white hover:bg-rose-500/40 hover:border-rose-500 hover:border-solid"
       >
         <input type="file" class="hidden" @change="uploadAlbumImg($event)" />
         <img :src="uploadAlbumImgTempUrl ? uploadAlbumImgTempUrl : albumEditTemp.albumImg" alt="" />
-        <h6 class="absolute top-1 left-2 text-rose-500">專輯封面</h6>
+        <h6 class="absolute top-1 left-2 text-rose-500">{{ $t('makeAlbumPage.album_cover') }}</h6>
       </label>
     </div>
     <!----------------------分隔線 ------------------------>
@@ -112,7 +111,9 @@ export default {
 
     <div class="flex justify-start pl-1">
       <label class="inline-flex items-center mb-3 cursor-pointer">
-        <span class="mr-5">是否發佈 :</span>
+        <span class="mr-5 truncate"
+          >{{ $t('memberMamagePage.editAlbum.make_album_public') }} :</span
+        >
         <input
           type="checkbox"
           v-model="albumEditTemp.isRelease"
@@ -122,99 +123,172 @@ export default {
         <div
           class="relative w-9 h-5 bg-white/20 border-gray-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-rose-300 dark:peer-focus:ring-rose-500 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-rose-200 after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-rose-500"
         ></div>
-        <span v-if="albumEditTemp.isRelease" class="pl-2 text-emerald-500">
-          發佈
+        <span v-if="albumEditTemp.isRelease" class="truncate pl-2 text-emerald-500">
+          {{ $t('memberMamagePage.editAlbum.album_is_public') }}
           <i class="fas fa-check-circle"></i>
         </span>
-        <span v-else class="pl-2 text-rose-600">
-          不發佈
+        <span v-else class="truncate pl-2 text-rose-600">
+          {{ $t('memberMamagePage.editAlbum.album_is_private') }}
           <i class="fas fa-bell"></i>
         </span>
       </label>
     </div>
     <vee-form :validation-schema="uploadSchema" v-bind:initial-values="userData">
       <div class="flex gap-2 items-center mb-3">
-        <label class="w-20">歌手名稱 :</label>
+        <label
+          :class="{
+            'w-20': $i18n.locale === 'zh',
+            'w-28': $i18n.locale === 'en',
+            truncate: $i18n.locale === 'en'
+          }"
+          >{{ $t('memberMamagePage.editAlbum.singer_name') }} :</label
+        >
         <vee-field
           type="text"
           name="albumSinger"
           class="flex-1 py-1.5 px-3 bg-white/10 text-zinc-100 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-          placeholder="歌手名稱"
+          :placeholder="$t('memberMamagePage.editAlbum.singer_name')"
           v-model="albumEditTemp.albumSinger"
         />
         <ErrorMessage class="text-pink-600" name="albumSinger" />
       </div>
       <div class="flex gap-2 items-center mb-3">
-        <label class="w-20">專輯名稱 :</label>
+        <label
+          :class="{
+            'w-20': $i18n.locale === 'zh',
+            'w-28': $i18n.locale === 'en',
+            truncate: $i18n.locale === 'en'
+          }"
+          >{{ $t('memberMamagePage.editAlbum.album_name') }} :</label
+        >
         <vee-field
           type="text"
           name="albumName"
           class="flex-1 py-1.5 px-3 bg-white/10 text-zinc-100 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-          placeholder="專輯名稱"
+          :placeholder="$t('memberMamagePage.editAlbum.album_name')"
           v-model="albumEditTemp.albumName"
         />
         <ErrorMessage class="text-pink-600" name="albumName" />
       </div>
       <div class="flex gap-2 items-center mb-3">
-        <label class="w-20">專輯類型 :</label>
+        <label
+          :class="{
+            'w-20': $i18n.locale === 'zh',
+            'w-28': $i18n.locale === 'en',
+            truncate: $i18n.locale === 'en'
+          }"
+          >{{ $t('memberMamagePage.editAlbum.album_genre') }} :</label
+        >
         <vee-field
           as="select"
           name="albumGenre"
           class="flex-1 h-10 max-w-[75%] md:max-w-full truncate px-3 bg-white/10 text-zinc-100 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
           v-model="albumEditTemp.albumGenre"
         >
-          <option class="bg-gray-700 text-zinc-100" value="Acoustic">原音樂 Acoustic</option>
-          <option class="bg-gray-700 text-zinc-100" value="Blues">藍調 Blues</option>
-          <option class="bg-gray-700 text-zinc-100" value="Classical">古典 Classical</option>
-          <option class="bg-gray-700 text-zinc-100" value="Country">鄉村音樂 Country</option>
+          <option class="bg-gray-700 text-zinc-100" value="Acoustic">
+            {{ $t('makeAlbumPage.albumGenre.Acoustic') }}
+          </option>
+          <option class="bg-gray-700 text-zinc-100" value="Blues">
+            {{ $t('makeAlbumPage.albumGenre.Blues') }}
+          </option>
+          <option class="bg-gray-700 text-zinc-100" value="Classical">
+            {{ $t('makeAlbumPage.albumGenre.Classical') }}
+          </option>
+          <option class="bg-gray-700 text-zinc-100" value="Country">
+            {{ $t('makeAlbumPage.albumGenre.Country') }}
+          </option>
           <option class="bg-gray-700 text-zinc-100" value="Dance">
-            電子舞曲 Dance / Electronica
+            {{ $t('makeAlbumPage.albumGenre.Dance_Electronica') }}
           </option>
-          <option class="bg-gray-700 text-zinc-100" value="Drones">持續音 Drones</option>
-          <option class="bg-gray-700 text-zinc-100" value="Dubstep">迴響貝斯 Dubstep</option>
+          <option class="bg-gray-700 text-zinc-100" value="Drones">
+            {{ $t('makeAlbumPage.albumGenre.Drones') }}
+          </option>
+          <option class="bg-gray-700 text-zinc-100" value="Dubstep">
+            {{ $t('makeAlbumPage.albumGenre.Dubstep') }}
+          </option>
           <option class="bg-gray-700 text-zinc-100" value="Easy Listening">
-            輕音樂 Easy Listening
+            {{ $t('makeAlbumPage.albumGenre.Easy_Listening') }}
           </option>
-          <option class="bg-gray-700 text-zinc-100" value="Folk">民歌 Folk</option>
-          <option class="bg-gray-700 text-zinc-100" value="Funk">放克 Funk</option>
-          <option class="bg-gray-700 text-zinc-100" value="Hip Hop">嘻哈 Hip Hop</option>
-          <option class="bg-gray-700 text-zinc-100" value="House">浩室 House</option>
-          <option class="bg-gray-700 text-zinc-100" value="Kitsch">俗氣 Kitsch</option>
-          <option class="bg-gray-700 text-zinc-100" value="Latin">拉丁 Latin</option>
-          <option class="bg-gray-700 text-zinc-100" value="March">進行曲 March</option>
-          <option class="bg-gray-700 text-zinc-100" value="Metal">金屬 Metal</option>
-          <option class="bg-gray-700 text-zinc-100" value="Opera">歌劇 Opera</option>
-          <option class="bg-gray-700 text-zinc-100" value="Pop">流行曲 Pop</option>
-          <option class="bg-gray-700 text-zinc-100" value="Rock">搖滾 Rock</option>
-          <option class="bg-gray-700 text-zinc-100" value="Soul">騷靈 Soul</option>
+          <option class="bg-gray-700 text-zinc-100" value="Folk">
+            {{ $t('makeAlbumPage.albumGenre.Folk') }}
+          </option>
+          <option class="bg-gray-700 text-zinc-100" value="Funk">
+            {{ $t('makeAlbumPage.albumGenre.Funk') }}
+          </option>
+          <option class="bg-gray-700 text-zinc-100" value="Hip Hop">
+            {{ $t('makeAlbumPage.albumGenre.Hip_Hop') }}
+          </option>
+          <option class="bg-gray-700 text-zinc-100" value="House">
+            {{ $t('makeAlbumPage.albumGenre.House') }}
+          </option>
+          <option class="bg-gray-700 text-zinc-100" value="Kitsch">
+            {{ $t('makeAlbumPage.albumGenre.Kitsch') }}
+          </option>
+          <option class="bg-gray-700 text-zinc-100" value="Latin">
+            {{ $t('makeAlbumPage.albumGenre.Latin') }}
+          </option>
+          <option class="bg-gray-700 text-zinc-100" value="March">
+            {{ $t('makeAlbumPage.albumGenre.March') }}/option>
+          </option>
+          <option class="bg-gray-700 text-zinc-100" value="Metal">
+            {{ $t('makeAlbumPage.albumGenre.Metal') }}
+          </option>
+          <option class="bg-gray-700 text-zinc-100" value="Opera">
+            {{ $t('makeAlbumPage.albumGenre.Opera') }}
+          </option>
+          <option class="bg-gray-700 text-zinc-100" value="Pop">
+            {{ $t('makeAlbumPage.albumGenre.Pop') }}
+          </option>
+          <option class="bg-gray-700 text-zinc-100" value="Rock">
+            {{ $t('makeAlbumPage.albumGenre.Rock') }}
+          </option>
+          <option class="bg-gray-700 text-zinc-100" value="Soul">
+            {{ $t('makeAlbumPage.albumGenre.Soul') }}
+          </option>
           <option class="bg-gray-700 text-zinc-100" value="Urban / R&B">
-            都市 / 節奏藍調 Urban / R&Bl
+            {{ $t('makeAlbumPage.albumGenre.Urban_R&Bl') }}
           </option>
           <option class="bg-gray-700 text-zinc-100" value="World Music">
-            民俗音樂 World Music
+            {{ $t('makeAlbumPage.albumGenre.World_Music') }}
           </option>
-          <option class="bg-gray-700 text-zinc-100" value="Other">其他 Other</option>
+          <option class="bg-gray-700 text-zinc-100" value="Other">
+            {{ $t('makeAlbumPage.albumGenre.Other') }}
+          </option>
         </vee-field>
         <ErrorMessage class="text-red-600" name="albumGenre" />
       </div>
       <div class="flex gap-2 items-center mb-3">
-        <label class="w-20">歌手自介 :</label>
+        <label
+          :class="{
+            'w-20': $i18n.locale === 'zh',
+            'w-28': $i18n.locale === 'en',
+            truncate: $i18n.locale === 'en'
+          }"
+          >{{ $t('memberMamagePage.editAlbum.singer_desc') }} :</label
+        >
         <vee-field
           as="textarea"
           name="albumSingerDesc"
           class="flex-1 py-1.5 px-3 h-20 bg-white/10 text-zinc-100 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-          placeholder="歌手自介"
+          :placeholder="$t('memberMamagePage.editAlbum.singer_desc')"
           v-model="albumEditTemp.albumSingerDesc"
         />
         <ErrorMessage class="text-pink-600" name="albumSingerDesc" />
       </div>
       <div class="flex gap-2 items-center mb-3">
-        <label class="w-20">專輯簡介 :</label>
+        <label
+          :class="{
+            'w-20': $i18n.locale === 'zh',
+            'w-28': $i18n.locale === 'en',
+            truncate: $i18n.locale === 'en'
+          }"
+          >{{ $t('memberMamagePage.editAlbum.album_desc') }} :</label
+        >
         <vee-field
           as="textarea"
           name="albumDesc"
           class="flex-1 py-1.5 px-3 h-20 bg-white/10 text-zinc-100 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-          placeholder="專輯簡介"
+          :placeholder="$t('memberMamagePage.editAlbum.album_desc')"
           v-model="albumEditTemp.albumDesc"
         />
         <ErrorMessage class="text-pink-600" name="albumDesc" />

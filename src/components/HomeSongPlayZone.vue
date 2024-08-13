@@ -2,6 +2,7 @@
 import { songsCollection } from '@/includes/firebase'
 import { mapState, mapActions, mapWritableState } from 'pinia'
 import { usePlayerStore } from '@/stores/player'
+import { useCommonStore } from '@/stores/common'
 import helper from '@/includes/helper'
 
 export default {
@@ -30,6 +31,7 @@ export default {
   },
   computed: {
     ...mapState(usePlayerStore, ['sound', 'playing', 'songList', 'current_song']),
+    ...mapState(useCommonStore, ['language', 'isMoblieScreen']),
     ...mapWritableState(usePlayerStore, ['songList'])
   },
   methods: {
@@ -122,13 +124,17 @@ export default {
           </div>
         </div>
       </div>
-      <div v-if="!isPlaying" class="text-lg font-bold">點我聽聽看</div>
+      <div v-if="!isPlaying" class="text-lg font-bold">{{ $t('home.give_it_a_listen') }}</div>
       <div v-else class="text-lg font-bold text-pink-500">{{ current_song.album }}</div>
     </div>
-    <div class="font-bold text-[13px] md:text-sm mt-3">
-      <span class="italic font-normal"
-        >網站之音樂及歌曲僅作為技術測試用，非商業用途，請勿轉載及分享</span
-      >
+    <div
+      class="font-bold text-[13px] md:text-sm mt-3"
+      :class="{
+        'text-center': language === 'en',
+        'w-[50%]': language === 'en' && !isMoblieScreen
+      }"
+    >
+      <span class="italic font-normal">{{ $t('home.cliam') }}</span>
     </div>
   </div>
 </template>

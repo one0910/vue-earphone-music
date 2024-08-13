@@ -42,7 +42,7 @@ export default {
         <div class="pt-3 pb-7 text-left px-6">
           <!--Title-->
           <div class="flex justify-between items-center pb-4">
-            <p class="text-md font-bold">您的帳戶</p>
+            <p class="text-md font-bold">{{ $t('signin&singup.your_account') }}</p>
             <!-- Modal Close Button -->
             <!-- <div class="modal-close cursor-pointer z-50" @click="isOpen = false"> -->
             <div class="modal-close cursor-pointer z-50" @click="modalVisibility = false">
@@ -63,7 +63,7 @@ export default {
                   'hover:text-white text-white bg-pink-500/75': tab === 'login',
                   'hover:text-rose-200': tab === 'register'
                 }"
-                >登入</a
+                >{{ $t('signin&singup.sign_in') }}</a
               >
             </li>
             <li class="flex-auto text-center">
@@ -75,7 +75,7 @@ export default {
                   'hover:text-white text-white bg-pink-500/75': tab === 'register',
                   'hover:text-rose-200': tab === 'login'
                 }"
-                >註冊</a
+                >{{ $t('signin&singup.sign_up') }}</a
               >
             </li>
           </ul>

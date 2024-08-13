@@ -59,7 +59,8 @@ export default {
         urls: []
       }
       this.fireShowAlertConfirm({
-        msg: `是否刪除專輯【${album.albumName}】`
+        // msg: `是否刪除專輯【${album.albumName}】`
+        msg: this.$t('alertMsg.delete_album', { albumName: album.albumName })
       })
     },
 
@@ -183,13 +184,13 @@ export default {
         </label>
 
         <div class="md:w-64 w-44">
-          <h5>個人檔案</h5>
+          <h5>{{ $t('memberMamagePage.profile') }}</h5>
           <p>{{ profileName }}</p>
         </div>
       </div>
 
       <hr class="my-6" />
-      <p class="mb-3">已建立的專輯</p>
+      <p class="mb-3">{{ $t('memberMamagePage.created_album') }}</p>
       <div class="grid grid-cols-4 gap-2">
         <div
           v-for="(album, index) in albums"

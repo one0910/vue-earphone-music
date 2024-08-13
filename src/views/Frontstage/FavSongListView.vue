@@ -156,7 +156,7 @@ export default {
             <img :src="currentSongCoverImg" :style="filter" alt="" />
           </div>
           <div class="mt-2">
-            <p class="text-center">我的播放清單</p>
+            <p class="text-center">{{ $t('menu.play_list') }}</p>
           </div>
           <ul class="md:mx-5 mx-5" :style="listHeightStyle" ref="listRef">
             <li

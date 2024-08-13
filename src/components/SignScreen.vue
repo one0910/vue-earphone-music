@@ -51,9 +51,11 @@ export default {
     <div class="container">
       <div class="signInfoBox">
         <div href="#" class="get168Btn cursor-pointer" @click.prevent="toggleAuthModal">
-          註冊成為歌手
+          {{ $t('screen.sign_up_to_singer') }}
         </div>
-        <div href="#" class="get168Btn cursor-pointer" @click.prevent="closeScreen">逛逛網站</div>
+        <div href="#" class="get168Btn cursor-pointer" @click.prevent="closeScreen">
+          {{ $t('screen.browse_site') }}
+        </div>
       </div>
     </div>
     <ul class="bg-bubbles">

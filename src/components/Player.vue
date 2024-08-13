@@ -145,7 +145,8 @@ input[type='range']::-webkit-slider-thumb {
   position: relative; /* 設為相對位置，為了前後區塊的絕對位置而設定 */
   width: 20px;
   height: 20px;
-  background: rgb(55 65 81 / var(--tw-text-opacity));
+  /* background: rgb(55 65 81 / var(--tw-text-opacity)); */
+  background: rgb(55 65 81 / var(--tw-text-opacity)) !important;
   border-radius: 50%;
   transition: 0.2s;
   z-index: 1;

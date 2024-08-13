@@ -60,7 +60,10 @@ export default {
           ></path>
         </svg>
         <!-- alert視窗的內容 -->
-        <div class="flex items-center justify-around pt-2 py-5">
+        <div
+          class="flex items-center justify-around pt-2 py-5"
+          :class="{ 'px-5': $i18n.locale === 'en' }"
+        >
           <p class="flex-1 text-gray-300 dark:text-gray-300 text-center">
             {{ alertMessage }}
           </p>
@@ -72,14 +75,14 @@ export default {
             class="py-2 px-3 text-sm font-medium text-zinc-200 bg-black/10 rounded-lg border border-gray-500 hover:bg-gray-400 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
             @click.prevent="closeAlert()"
           >
-            取消
+            {{ $t('button.cancel') }}
           </button>
           <button
             type="submit"
             class="py-2 px-3 text-sm font-medium text-center text-white bg-rose-600/80 rounded-lg hover:bg-red-900 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500/ dark:hover:bg-red-600 dark:focus:ring-red-900"
             @click.prevent="delDataCheck()"
           >
-            確定
+            {{ $t('button.confirm') }}
           </button>
         </div>
       </div>

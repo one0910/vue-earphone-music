@@ -234,7 +234,7 @@ export default {
   mounted() {
     if (!this.uid) {
       this.toggle = !this.toggle
-      this.message = `請註冊並登入，即可製作自己的專輯`
+      this.message = this.$t('ErroMsg.login_to_use')
     }
   }
 }
@@ -249,11 +249,13 @@ export default {
       class="cursor-pointer py-1.5 px-3 mr-2 rounded text-zinc-100 bg-rose-500 hover:bg-rose-600 disabled:bg-zinc-700 disabled:text-zinc-400"
     >
       <input type="file" class="hidden" multiple @change="uploadSong($event)" />
-      <span>上傳歌曲檔案</span>
+      <span>{{ $t('button.upload_song') }}</span>
     </label>
 
     <div class="mt-4">
-      <p class="mb-3 border-b-2 border-[#fff]/30 pb-2">要上傳的歌曲:</p>
+      <p class="mb-3 border-b-2 border-[#fff]/30 pb-2">
+        {{ $t('makeAlbumPage.the_song_you_want_to_upload') }}:
+      </p>
       <div class="mb-4" v-for="(upload, index) in uploadsTemp" :key="upload['file'].name">
         <!-- File Name -->
         <div
@@ -288,9 +290,9 @@ export default {
           ></div>
         </div>
       </div>
-      <div class="flex justify-between">
+      <div class="flex justify-between items-center">
         <div :class="{ 'opacity-0': uid }">
-          <span class="text-sm text-pink-600">您還未註冊及登入，無法完成專輯製作</span>
+          <span class="text-sm text-pink-600">{{ $t('alertMsg.registered_yet') }}</span>
         </div>
         <button
           v-if="uploadAvilable"
@@ -299,7 +301,7 @@ export default {
           :disabled="canBeSubmit"
           @click="submit"
         >
-          確定上傳
+          {{ $t('button.confirm_upload') }}
         </button>
       </div>
     </div>

@@ -1,0 +1,120 @@
+{
+  "singer": "Artist",
+  "screen": {
+    "sign_up_to_singer": "Sign Up To Be A Singer",
+    "browse_site": "Browse The Site"
+  },
+  "menu": {
+    "sign_in_sign_up": "Sign In/Sign Up",
+    "logout": "Logout",
+    "make_your_own_album": "Make Own Album",
+    "play_list": "Play List",
+    "member_managemnet": "Member Management"
+  },
+  "button": {
+    "upload_song": "Upload Song",
+    "confirm_upload": "Confirm",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "publish_later": "Not now",
+    "yes": "yes"
+  },
+  "signin&singup": {
+    "your_account": "Your Account",
+    "sign_in": "Sign In",
+    "sign_up": "Sign Up",
+    "password": "Password",
+    "submit_btn": "Submit",
+    "send_btn": "Send",
+    "loggin_in": "Logging in...",
+    "loggin_failed": "Login failed",
+    "loggin_successful": "Login successful! Redirecting... ",
+    "signing_up_wait": "Signing up, please wait...",
+    "user_name": "User Name",
+    "enter_user_name": "Enter username",
+    "enter_email": "Enter your email",
+    "enter_password": "Enter password",
+    "enter_password_again": "Please enter your password again",
+    "confirm_password": "Confirm password"
+  },
+  "home": {
+    "give_it_a_listen": "Give It A Listen",
+    "cliam": "The music,songs and pictures on this website are for technical testing purposes only and are not for commercial use. Please do not reproduce or share",
+    "tomorrow_stars_title": "Tomorrow's Stars",
+    "america_pop_title": "North American Pop",
+    "piano_pop_title": "Piano Music"
+  },
+  "makeAlbumPage": {
+    "start_to_make_album_title": "Make Your Album",
+    "upload_your_song_title": "Upload Your Song",
+    "the_song_you_want_to_upload": "Song Uploading List",
+    "upload_singer_photo": "Upload your photo",
+    "upload_album_cover": "Upload album cover",
+    "singer_photo": "Artist photo",
+    "singer_name": "Artist name",
+    "album_cover": "Album cover",
+    "album_name": "Album name",
+    "album_genre": "Album genre",
+    "album_desc": "Album description",
+    "descript_your_album": "Please descript your album",
+    "singer_desc": "Artist description",
+    "descript_yourself": "Please descript yourself",
+    "albumGenre": {
+      "Acoustic": "Acoustic",
+      "Blues": "Blues",
+      "Classical": "Classical",
+      "Country": "Country",
+      "Dance_Electronica": "Dance Electronica",
+      "Drones": "Drones",
+      "Dubstep": "Dubstep",
+      "Easy_Listening": "Easy Listening",
+      "Folk": "Folk",
+      "Funk": "Funk",
+      "Hip_Hop": "Hip Hop",
+      "House": "House",
+      "Kitsch": "Kitsch",
+      "Latin": "Latin",
+      "March": "March",
+      "Metal": "Metal",
+      "Opera": "Opera",
+      "Pop": "Pop",
+      "Rock": "Rock",
+      "Soul": "Soul",
+      "Urban_R&Bl": "Urban/R&B",
+      "World_Music": "World Music",
+      "Other": "Other"
+    }
+  },
+  "memberMamagePage": {
+    "profile": "Profile",
+    "created_album": "Created Album",
+    "editAlbum": {
+      "album_info": "Album Infomation",
+      "make_album_public": "Make Album Public",
+      "album_is_public": "Album is public",
+      "album_is_private": "Album is private",
+      "singer_name": "Artist Name",
+      "album_name": "Album Name",
+      "album_genre": "Album Genre",
+      "singer_desc": "Artist Description",
+      "album_desc": "Album Description",
+      "uploaded_song_list": "Uploaded Song List"
+    }
+  },
+  "ErroMsg": {
+    "feature_unavailable_msg": "This feature is available to registered users only. Please sign up for a free account",
+    "login_to_use": "Please sign up and log in to create your own album",
+    "no_available_route": "No Available Route"
+  },
+  "alertMsg": {
+    "delete_album": "Are you sure to delete album【{albumName}】",
+    "delete_favsong": "Are you sure to delete「{favsongName}」from play list",
+    "file_extension_check_alert": "Please upload an image file in JPG, PNG, or BMP format.",
+    "photo_size_suggetion_alert": "Please ensure your image is square (e.g., 500x500 pixels).",
+    "photo_pixel_than_suggetion_alert": "Your image must be at least 200 pixels by 200 pixels",
+    "registered_yet": "You have not registered or logged in yet. You cannot complete the album creation.",
+    "album_complete_alert": "Your album is complete. Would you like to publish it on the website?",
+    "at_leaset_one_alert": "At least one audio file must be retained.",
+    "non_mp3_file_alert": "【{file}】is not mp3,please re-select your file"
+  }
+}

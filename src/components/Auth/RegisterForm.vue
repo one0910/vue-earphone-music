@@ -1,6 +1,7 @@
 <script>
 import { mapActions } from 'pinia'
 import { useUserStore } from '@/stores/user'
+
 const excluded = 'password,admin'
 export default {
   name: 'registerForm',
@@ -18,10 +19,9 @@ export default {
       reg_in_submission: false,
       res_show_alert: false,
       reg_alert_variant: 'bg-blue-500/50',
-      reg_alert_msg: '註冊中，請稍等...'
+      reg_alert_msg: this.$t('signin&singup.signing_up_wait')
     }
   },
-  computed: {},
   methods: {
     ...mapActions(useUserStore, {
       createUser: 'register'
@@ -31,7 +31,7 @@ export default {
       this.res_show_alert = true
       this.reg_in_submission = true
       this.reg_alert_variant = 'bg-blue-500/50'
-      this.reg_alert_msg = '註冊中，請稍等...'
+      this.reg_alert_msg = this.$t('signin&singup.signing_up_wait')
       try {
         /*若註冊成功時*/
         await this.createUser(values)
@@ -44,7 +44,7 @@ export default {
         return
       }
       this.reg_alert_variant = 'bg-green-500/60'
-      this.login_alert_msg = '註冊成功! 轉跳頁面中.'
+      this.login_alert_msg = this.$t('signin&singup.loggin_successful')
       window.location.reload()
     }
   }
@@ -65,7 +65,7 @@ export default {
   <vee-form :validation-schema="schema" @submit="register" v-bind:initial-values="userData">
     <!-- Name -->
     <div class="mb-3">
-      <label class="inline-block mb-2">使用者名稱</label>
+      <label class="inline-block mb-2">{{ $t('signin&singup.user_name') }}</label>
 
       <!-- 下面使用vee-field 這個validate套件的標籤取代input，
         並設定一個name的屬性，該屬性的值則為data()=>{return schema: {}}裡面的key，
@@ -75,7 +75,7 @@ export default {
         name="name"
         type="text"
         class="block w-full py-1.5 px-3 bg-white/10 text-zinc-100 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-        placeholder="輸入使用者名稱"
+        :placeholder="$t('signin&singup.enter_user_name')"
       />
       <!-- ErrorMessage裡的name要與 vee-field所綁定的name是一致的，
                 以下面為例，name裡值則為vee-field裡name的值-->
@@ -88,24 +88,25 @@ export default {
         name="email"
         type="email"
         class="block w-full py-1.5 px-3 bg-white/10 text-zinc-100 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-        placeholder="輸入Email"
+        :placeholder="$t('signin&singup.enter_email')"
       />
       <ErrorMessage class="text-pink-600" name="email" />
     </div>
 
     <!-- Password -->
     <div class="mb-3">
-      <label class="inline-block mb-2">密碼</label>
+      <label class="inline-block mb-2">{{ $t('signin&singup.password') }}</label>
       <vee-field name="password" :bails="false" v-slot="{ field, errors }">
         <input
           class="block w-full py-1.5 px-3 bg-white/10 text-zinc-100 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
           type="password"
           name="password"
           autocomplete="password"
-          placeholder="輸入密碼"
+          :placeholder="$t('signin&singup.enter_password')"
           v-bind="field"
         />
         <div class="text-pink-600" v-for="error in errors" :key="error">
+          <!-- <pre>{{ transVaildtionErrString('test') }}</pre> -->
           {{ error }}
         </div>
       </vee-field>
@@ -114,13 +115,13 @@ export default {
 
     <!-- Confirm Password -->
     <div class="mb-3">
-      <label class="inline-block mb-2">請再次輸入您的密碼</label>
+      <label class="inline-block mb-2">{{ $t('signin&singup.enter_password_again') }}</label>
       <vee-field
         name="confirm_password"
         type="password"
         class="block w-full py-1.5 px-3 bg-white/10 text-zinc-100 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
         autocomplete="password"
-        placeholder="再次確認密碼"
+        :placeholder="$t('signin&singup.confirm_password')"
       />
       <ErrorMessage class="text-pink-600" name="confirm_password" />
     </div>
@@ -130,7 +131,7 @@ export default {
       class="block w-full bg-pink-500/75 text-white py-1.5 px-3 rounded transition hover:bg-pink-500/55 disabled:bg-gray-400"
       :disabled="reg_in_submission"
     >
-      送出
+      {{ $t('signin&singup.send_btn') }}
     </button>
   </vee-form>
 </template>

@@ -1,0 +1,120 @@
+{
+  "singer": "歌手",
+  "screen": {
+    "sign_up_to_singer": "註冊成為歌手",
+    "browse_site": "逛逛網站"
+  },
+  "button": {
+    "upload_song": "上傳歌曲檔案",
+    "confirm_upload": "確定上傳",
+    "confirm": "確定",
+    "cancel": "取消",
+    "publish_later": "目前先不用",
+    "yes": "是"
+  },
+  "menu": {
+    "sign_in_sign_up": "登入/註冊",
+    "logout": "登出",
+    "make_your_own_album": "製作自己的專輯",
+    "play_list": "我的播放清單",
+    "member_managemnet": "會員管理"
+  },
+  "signin&singup": {
+    "your_account": "您的帳戶",
+    "sign_in": "登入",
+    "sign_up": "註冊",
+    "password": "密碼",
+    "submit_btn": "傳送",
+    "send_btn": "送出",
+    "loggin_in": "正在登入中...",
+    "loggin_failed": "登入失敗",
+    "loggin_successful": "登入成功! 轉跳頁面中",
+    "signing_up_wait": "註冊中，請稍等...",
+    "user_name": "使用者名稱",
+    "enter_user_name": "輸入使用者名稱",
+    "enter_email": "輸入Email",
+    "enter_password": "輸入密碼",
+    "enter_password_again": "請再次輸入您的密碼",
+    "confirm_password": "再次確認密碼"
+  },
+  "home": {
+    "give_it_a_listen": "點我聽聽看",
+    "cliam": "網站之音樂、歌曲及圖片僅作為技術測試用，非商業用途，請勿轉載及分享",
+    "tomorrow_stars_title": "明日之星",
+    "america_pop_title": "美國流行音樂",
+    "piano_pop_title": "鋼琴音樂"
+  },
+  "makeAlbumPage": {
+    "start_to_make_album_title": "開始製作專輯",
+    "upload_your_song_title": "您要上傳的歌曲",
+    "the_song_you_want_to_upload": "您要上傳的歌曲",
+    "upload_singer_photo": "上傳歌手照片",
+    "upload_album_cover": "上傳專輯封面",
+    "singer_photo": "歌手照片",
+    "singer_name": "歌手名稱",
+    "album_cover": "專輯封面",
+    "album_name": "專輯名稱",
+    "album_genre": "專輯類型",
+    "album_desc": "專輯描述",
+    "descript_your_album": "請描述您的專輯",
+    "singer_desc": "歌手描述",
+    "descript_yourself": "請描述您自己",
+    "albumGenre": {
+      "Acoustic": "原音樂",
+      "Blues": "藍調",
+      "Classical": "古典",
+      "Country": "鄉村音樂",
+      "Dance_Electronica": "電子舞曲",
+      "Drones": "持續音",
+      "Dubstep": "迴響貝斯",
+      "Easy_Listening": "輕音樂",
+      "Folk": "民歌",
+      "Funk": "放克",
+      "Hip_Hop": "嘻哈",
+      "House": "浩室",
+      "Kitsch": "俗氣",
+      "Latin": "拉丁",
+      "March": "進行曲",
+      "Metal": "金屬",
+      "Opera": "歌劇",
+      "Pop": "流行曲",
+      "Rock": "搖滾",
+      "Soul": "騷靈",
+      "Urban_R&Bl": "都市 / 節奏藍調",
+      "World_Music": "民俗音樂",
+      "Other": "其他"
+    }
+  },
+  "memberMamagePage": {
+    "profile": "個人檔案",
+    "created_album": "已建立的專輯",
+    "editAlbum": {
+      "album_info": "專輯資訊",
+      "make_album_public": "是否發佈",
+      "album_is_public": "發佈",
+      "album_is_private": "不發佈",
+      "singer_name": "歌手名稱",
+      "singer_desc": "歌手自介",
+      "album_name": "專輯名稱",
+      "album_genre": "專輯類型",
+      "album_desc": "專輯簡介",
+      "uploaded_song_list": "已上傳的歌曲"
+    }
+  },
+  "ErroMsg": {
+    "feature_unavailable_msg": "該功能需登入才可使用，可免費註冊使用",
+    "login_to_use": "請註冊並登入，即可製作自己的專輯",
+    "no_available_route": "沒找到指定的路由"
+  },
+  "alertMsg": {
+    "delete_album": "是否刪除專輯【{albumName}】",
+    "delete_favsong": "是否將「{favsongName}」從清單中刪除",
+    "file_extension_check_alert": "請上傳圖片檔，如jpg、png、bmp檔等",
+    "photo_size_suggetion_alert": "建議圖片為長、寬一樣的尺寸，例如500x500",
+    "photo_pixel_than_suggetion_alert": "圖片尺寸長、寬需大於200像素",
+    "registered_yet": "您還未註冊及登入，無法完成專輯製作",
+    "album_complete_alert": "專輯已完成，是否要公開至網站上?",
+    "at_leaset_one_alert": "至少需保留一個音樂檔",
+    "non_mp3_file_alert": "【{file}】非mp3檔,請重傳"
+  }
+}

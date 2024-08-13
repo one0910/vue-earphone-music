@@ -4,6 +4,13 @@ import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Navigation } from 'swiper/modules'
 import { mapWritableState, mapState } from 'pinia'
 import { useAlbumInfoStore } from '@/stores/albumInfo'
+import {
+  transAlbumName,
+  transSingerName,
+  transSingerDesc_fund,
+  transSingerName_fund,
+  transAlbumName_fund
+} from '@/helper/transform.language'
 
 // Import Swiper styles
 import 'swiper/css'
@@ -48,6 +55,21 @@ export default {
       } catch (error) {
         console.error('Error adding album:', error)
       }
+    },
+    signerName(albumSinger, type = '', temp = false) {
+      // return transSingerName(albumSinger)
+      if (type === 'member_fundraising') {
+        return transSingerName_fund(albumSinger, type, temp)
+      } else {
+        return transSingerName(albumSinger)
+      }
+    },
+    albumName(albumName, type, temp) {
+      if (type === 'member_fundraising') {
+        return transAlbumName_fund(albumName, type, temp)
+      } else {
+        return transAlbumName(albumName)
+      }
     }
   },
   components: {
@@ -90,10 +112,11 @@ export default {
             class="text-sm my-1 font-bold text-zinc-200 w-[130px] truncate overflow-hidden text-center mx-auto"
             :class="{ hidden: isfundraising }"
           >
-            《{{ album.albumName }}》
+            《{{ albumName(album.albumName, album.type, album.temp) }}》
           </p>
           <p class="text-sm font-bold text-zinc-200" :class="{ 'mt-2': isfundraising }">
-            {{ album.albumSinger }}
+            {{ signerName(album.albumSinger, album.type, album.temp) }}
+            <!-- {{ album.albumSinger }} -->
           </p>
         </router-link>
       </swiper-slide>

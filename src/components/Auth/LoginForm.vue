@@ -13,7 +13,7 @@ export default {
       login_in_submission: false,
       login_show_alert: false,
       login_alert_variant: 'bg-blue-500/50',
-      login_alert_msg: '正在登入中.'
+      login_alert_msg: this.$t('signin&singup.loggin_in')
     }
   },
   methods: {
@@ -22,7 +22,7 @@ export default {
       this.login_in_submission = true
       this.login_show_alert = true
       this.login_alert_variant = 'bg-blue-500/50'
-      this.login_alert_msg = '正在登入中.'
+      this.login_alert_msg = this.$t('signin&singup.loggin_in')
 
       try {
         await this.authenticate(values)
@@ -30,13 +30,12 @@ export default {
         console.log('error => ', error)
         this.login_in_submission = false
         this.login_alert_variant = 'bg-red-500'
-        this.login_alert_msg = '登入失敗.'
+        this.login_alert_msg = this.$t('signin&singup.loggin_failed')
         return
       }
 
       this.login_alert_variant = 'bg-green-500/60'
-      this.login_alert_msg = '登入成功! 轉跳頁面中.'
-      console.log('this.$route => ', this.$route)
+      this.login_alert_msg = this.$t('signin&singup.loggin_successful')
       window.location.reload()
     }
   }
@@ -67,7 +66,7 @@ export default {
     </div>
     <!-- Password -->
     <div class="mb-3">
-      <label class="inline-block mb-2">密碼</label>
+      <label class="inline-block mb-2">{{ $t('signin&singup.password') }}</label>
       <vee-field
         type="password"
         name="password"
@@ -82,7 +81,7 @@ export default {
       class="block w-full bg-pink-500/75 text-white py-1.5 px-3 rounded transition hover:bg-pink-500/55 disabled:bg-gray-400"
       :disabled="login_in_submission"
     >
-      傳送
+      {{ $t('signin&singup.submit_btn') }}
     </button>
   </vee-form>
 </template>

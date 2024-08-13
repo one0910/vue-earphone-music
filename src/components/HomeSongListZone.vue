@@ -13,12 +13,12 @@ export default {
   computed: {
     generHead() {
       const labels = {
-        America: '美國流行音樂',
+        America: this.$t('home.america_pop_title'),
         Kpop: 'KPOP',
         Jpop: 'JPOP',
-        Music: '鋼琴音樂',
-        fundraising: '明日之星',
-        default: '歌曲清單'
+        Music: this.$t('home.piano_pop_title'),
+        fundraising: this.$t('home.tomorrow_stars_title'),
+        default: this.$t('menu.play_list')
       }[this.gener]
       return labels || labels['default']
     }
