@@ -150,6 +150,8 @@ export default {
           :placeholder="$t('memberMamagePage.editAlbum.singer_name')"
           v-model="albumEditTemp.albumSinger"
         />
+      </div>
+      <div class="text-left">
         <ErrorMessage class="text-pink-600" name="albumSinger" />
       </div>
       <div class="flex gap-2 items-center mb-3">
@@ -168,6 +170,8 @@ export default {
           :placeholder="$t('memberMamagePage.editAlbum.album_name')"
           v-model="albumEditTemp.albumName"
         />
+      </div>
+      <div class="text-left">
         <ErrorMessage class="text-pink-600" name="albumName" />
       </div>
       <div class="flex gap-2 items-center mb-3">
@@ -255,7 +259,9 @@ export default {
             {{ $t('makeAlbumPage.albumGenre.Other') }}
           </option>
         </vee-field>
-        <ErrorMessage class="text-red-600" name="albumGenre" />
+      </div>
+      <div class="text-left">
+        <ErrorMessage class="text-pink-600" name="albumGenre" />
       </div>
       <div class="flex gap-2 items-center mb-3">
         <label
@@ -273,6 +279,8 @@ export default {
           :placeholder="$t('memberMamagePage.editAlbum.singer_desc')"
           v-model="albumEditTemp.albumSingerDesc"
         />
+      </div>
+      <div class="text-left">
         <ErrorMessage class="text-pink-600" name="albumSingerDesc" />
       </div>
       <div class="flex gap-2 items-center mb-3">
@@ -291,6 +299,8 @@ export default {
           :placeholder="$t('memberMamagePage.editAlbum.album_desc')"
           v-model="albumEditTemp.albumDesc"
         />
+      </div>
+      <div class="text-left">
         <ErrorMessage class="text-pink-600" name="albumDesc" />
       </div>
     </vee-form>

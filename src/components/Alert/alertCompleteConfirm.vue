@@ -87,7 +87,10 @@ export default {
         </svg>
         <!-- alert視窗的內容 -->
         <div class="flex items-center justify-around pt-2 py-5">
-          <p class="flex-1 text-gray-300 dark:text-gray-300 text-center">
+          <p
+            class="flex-1 text-gray-300 dark:text-gray-300 text-center"
+            :class="{ 'px-2': $i18n.locale === 'en' }"
+          >
             {{ $t('alertMsg.album_complete_alert') }}
           </p>
         </div>

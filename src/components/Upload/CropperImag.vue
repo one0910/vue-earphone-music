@@ -121,7 +121,7 @@ export default {
                 class="w-full ml-1 py-1 rounded text-white bg-rose-600"
                 @click="cropAndSave"
               >
-                確定裁切
+                {{ $t('button.confirm_cropper') }}
               </button>
             </div>
           </div>

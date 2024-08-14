@@ -111,7 +111,7 @@ export default {
       </div>
       <vee-form :validation-schema="schema" :initial-values="song" @submit="edit">
         <div class="mb-3">
-          <label class="inline-block mb-2">歌曲名稱</label>
+          <label class="inline-block mb-2">{{ $t('song_name') }}</label>
           <!-- input事件可以用來監聽是否有字元被輸入到input的欄位，若有則觸發 -->
           <vee-field
             name="modified_name"
@@ -123,7 +123,7 @@ export default {
           <ErrorMessage class="text-red-600" name="modified_name" />
         </div>
         <div class="mb-3">
-          <label class="inline-block mb-2">類型</label>
+          <label class="inline-block mb-2">{{ $t('genre') }}</label>
           <vee-field
             name="genre"
             type="text"
@@ -134,7 +134,7 @@ export default {
           <ErrorMessage class="text-red-600" name="genre" />
         </div>
         <button type="submit" class="py-1 px-3 mr-2 rounded text-zinc-100 bg-green-700">
-          確定修改
+          {{ $t('button.confirm') }}
         </button>
         <button
           type="button"
@@ -142,7 +142,7 @@ export default {
           :disabled="is_submission"
           @click.prevent="showForm = false"
         >
-          取消
+          {{ $t('button.cancel') }}
         </button>
       </vee-form>
     </div>

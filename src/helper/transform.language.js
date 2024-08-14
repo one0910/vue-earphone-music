@@ -254,7 +254,7 @@ const transferField = (field) => {
 export const transRequiredField = (field) => {
   const { language } = useCommonStore()
   if (language === 'zh') {
-    return `${transferField(field)}欄位不可為空白`
+    return `*${transferField(field)}欄位不可為空白`
   }
   return `The field ${field} is required.`
 }
@@ -262,7 +262,7 @@ export const transRequiredField = (field) => {
 export const transMinField = (field) => {
   const { language } = useCommonStore()
   if (language === 'zh') {
-    return `${transferField(field)}欄位所輸入文字長度太短`
+    return `*${transferField(field)}欄位所輸入文字長度太短`
   }
   return `The field ${field} is too short`
 }
@@ -270,7 +270,7 @@ export const transMinField = (field) => {
 export const transMaxField = (field) => {
   const { language } = useCommonStore()
   if (language === 'zh') {
-    return `${transferField(field)}欄位所輸入文字長度太長`
+    return `*${transferField(field)}欄位所輸入文字長度太長`
   }
   return `The field ${field} is too long`
 }

@@ -51,7 +51,7 @@ export default {
         this.setFavSongToDatabase(songData.docID)
         this.toggle = !this.toggle
         this.success = true
-        this.message = `已將 ${songData.modified_name} 加入至您的播放清單`
+        this.message = this.$t('alertMsg.add_song_to_list', { favsongName: songData.modified_name })
       }
     },
     async delFormFav(songData) {
@@ -68,7 +68,10 @@ export default {
         this.isFavSong = false
         this.toggle = !this.toggle
         this.success = true
-        this.message = `已將 ${songData.modified_name} 從您的播放清單移除`
+        // this.message = `已將 ${songData.modified_name} 從您的播放清單移除`
+        this.message = this.$t('alertMsg.delete_song_form_play_list', {
+          favsongName: songData.modified_name
+        })
       } catch (error) {
         console.log('error => ', error)
       }

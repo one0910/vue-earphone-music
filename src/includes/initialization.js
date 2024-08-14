@@ -1,5 +1,6 @@
 import { useCommonStore } from '@/stores/common'
-
+import { useUserStore } from '@/stores/user'
+import { firebase, favoriteSongListCollection } from '@/includes/firebase'
 
 async function internationalization(vm, setLanguageDone) {
   const { setLanguage } = useCommonStore()
@@ -37,9 +38,22 @@ function handleMediaQueryChange() {
   })
 }
 
+async function getFavSongList(params) {
+  const { uid, favSongList } = useUserStore()
+  try {
+    if (uid) {
+      const favSongListSnapshot = await favoriteSongListCollection.doc(uid).get()
+      favSongList.push(...favSongListSnapshot.data()['favSongLists'])
+    }
+  } catch (error) {
+    console.log('error => ', error)
+  }
+}
+
 function initialization(vm, setLanguageDone) {
   internationalization(vm, setLanguageDone)
   handleMediaQueryChange()
+  getFavSongList()
 }
 
 export default initialization

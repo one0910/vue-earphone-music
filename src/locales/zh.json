@@ -1,5 +1,7 @@
 {
   "singer": "歌手",
+  "genre": "類型",
+  "song_name": "歌曲名稱",
   "screen": {
     "sign_up_to_singer": "註冊成為歌手",
     "browse_site": "逛逛網站"
@@ -7,6 +9,7 @@
   "button": {
     "upload_song": "上傳歌曲檔案",
     "confirm_upload": "確定上傳",
+    "confirm_cropper": "確定裁切",
     "confirm": "確定",
     "cancel": "取消",
     "publish_later": "目前先不用",
@@ -107,6 +110,8 @@
     "no_available_route": "沒找到指定的路由"
   },
   "alertMsg": {
+    "add_song_to_list": "已將「{favsongName}」加入至您的播放清單",
+    "delete_song_form_play_list": "已將「{favsongName}」從您的播放清單移除",
     "delete_album": "是否刪除專輯【{albumName}】",
     "delete_favsong": "是否將「{favsongName}」從清單中刪除",
     "file_extension_check_alert": "請上傳圖片檔，如jpg、png、bmp檔等",

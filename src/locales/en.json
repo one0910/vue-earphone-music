@@ -1,5 +1,7 @@
 {
   "singer": "Artist",
+  "genre": "Genre",
+  "song_name": "Song Name",
   "screen": {
     "sign_up_to_singer": "Sign Up To Be A Singer",
     "browse_site": "Browse The Site"
@@ -14,6 +16,7 @@
   "button": {
     "upload_song": "Upload Song",
     "confirm_upload": "Confirm",
+    "confirm_cropper": "Confirm to crop",
     "confirm": "Confirm",
     "cancel": "Cancel",
     "publish_later": "Not now",
@@ -107,6 +110,8 @@
     "no_available_route": "No Available Route"
   },
   "alertMsg": {
+    "add_song_to_list": "The「{favsongName}」has been added in play list",
+    "delete_song_form_play_list": "The「{favsongName}has been removed form play list",
     "delete_album": "Are you sure to delete album【{albumName}】",
     "delete_favsong": "Are you sure to delete「{favsongName}」from play list",
     "file_extension_check_alert": "Please upload an image file in JPG, PNG, or BMP format.",

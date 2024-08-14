@@ -28,13 +28,6 @@ export default {
     initialization(this, (setLanguageDone = false) => {
       setLanguageDone && (this.showLoading = false)
     })
-
-    // const mediaQuery = window.matchMedia('(max-width: 768px)')
-    // mediaQuery.addEventListener('change', function (event) {
-    //   console.log('event => ', event.matches)
-    //   this.isMoblieScreen = event.matches
-    //   console.log('this.isMoblieScreen => ', this.isMoblieScreen)
-    // })
   }
 }
 </script>
