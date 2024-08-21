@@ -2,6 +2,7 @@
 import { usePlayerStore } from '@/stores/player'
 import { mapActions, mapState } from 'pinia'
 import helper from '@/includes/helper'
+import { transSingerName, transSingerName_fund } from '@/helper/transform.language'
 
 export default {
   name: 'Player',
@@ -19,7 +20,11 @@ export default {
       'playProgress',
       'current_song',
       'hiddenClass'
-    ])
+    ]),
+    signerName() {
+      const { display_name } = this.current_song
+      return transSingerName(display_name)
+    }
   },
   methods: {
     ...mapActions(usePlayerStore, ['toggleAudio', 'updateSeek', 'forward_backPlay'])
@@ -44,7 +49,7 @@ export default {
         <div class="flex-1">
           <!-- Track Info -->
           <div class="text-center" v-if="current_song.modified_name">
-            <span class="font-bold text-md">{{ current_song.display_name }}</span> -
+            <span class="font-bold text-md">{{ signerName }}</span> -
             <span class="font-bold text-md">{{ current_song.modified_name }}</span>
           </div>
           <div class="flex flex-nowrap gap-4 items-center">
