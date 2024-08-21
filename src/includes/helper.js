@@ -50,7 +50,6 @@ export default {
       const validTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/bmp']
       if (!validTypes.includes(file.type)) {
         resolve({ showAlert: true, message: i18n.global.t("alertMsg.file_extension_check_alert") })
-
       }
       resolve({ file })
 

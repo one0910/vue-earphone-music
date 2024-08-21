@@ -19,6 +19,11 @@ const auth = firebase.auth()
 const db = firebase.firestore()
 const storage = firebase.storage()
 
+/*啟用firebase的離線存取功能*/
+db.enablePersistence().catch((error) => {
+  console.log(`Firebase persistence error ${error.code}`);
+});
+
 const userCollection = db.collection('users')
 const songsCollection = db.collection('songs')
 const albumsCollection = db.collection('albums')

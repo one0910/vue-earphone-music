@@ -26,6 +26,7 @@ This is an experimental music platform that combines music streaming and crowdfu
 
 - Frontend - Vite + Vue3.0(Option API) + pinia + tailwindcss + vee-validate + Internationalization
 - Backend - Firebase Authentication + Firestore Database
+- Proformance : PWA(Progressive Web Application)
 
 ## Directory Structure
 
