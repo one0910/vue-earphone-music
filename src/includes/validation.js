@@ -12,7 +12,7 @@ import {
   transMinField,
   transMaxField
 } from '@/helper/transform.language';
-
+import i18n from './i18n'
 
 export const VeeValidatePlugin = {
   install(app) {
@@ -47,7 +47,7 @@ export const VeeValidatePlugin = {
           max_value: `The field ${context.field} is too high.`,
           excluded: `You are not allowed to use this value for the field ${context.field}.`,
           contry_excluded: `Due to restrictions, we do not accept users from this laction`,
-          passwords_mismatch: `與所輸入的密碼不符合`,
+          passwords_mismatch: i18n.global.t("validation.password_mismatch"),
           tos: `You must accept the Terms of Service.`,
         }
         const message = messages[context.rule.name] ? messages[context.rule.name] : `The field ${context.field} is invalid.`

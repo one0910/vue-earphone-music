@@ -3,6 +3,7 @@
     transform: translateX(-50%) translateY(-50%) translateZ(0) scale(1);
     opacity: 1;
   }
+
   100% {
     transform: translateX(-50%) translateY(-50%) translateZ(0) scale(1.5);
     opacity: 0;
@@ -22,6 +23,7 @@
 .playButton {
   position: relative;
 }
+
 .playButton:before {
   content: '';
   position: absolute;
@@ -36,23 +38,28 @@
   border-radius: 50px;
   animation: pulse-border 1500ms ease-out infinite;
 }
+
 @media screen and (max-width: 768px) {
   .playButton:before {
     width: 80px;
     height: 80px;
   }
 }
+
 .progress-bar {
   background-size: 1rem 1rem;
-  background-image: linear-gradient(
-    45deg,
-    rgba(255, 255, 255, 0.15) 25%,
-    transparent 25%,
-    transparent 50%,
-    rgba(255, 255, 255, 0.15) 50%,
-    rgba(255, 255, 255, 0.15) 75%,
-    transparent 75%,
-    transparent
-  );
+  background-image: linear-gradient(45deg,
+      rgba(255, 255, 255, 0.15) 25%,
+      transparent 25%,
+      transparent 50%,
+      rgba(255, 255, 255, 0.15) 50%,
+      rgba(255, 255, 255, 0.15) 75%,
+      transparent 75%,
+      transparent);
   animation: progress-bar-stripes 1s linear infinite;
+}
+
+// 頁面載入之前的顯示條
+#nprogress .bar {
+  background: #fcc !important;
 }

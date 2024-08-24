@@ -1,11 +1,12 @@
 import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router'
-import HomeView from '@/views/Frontstage/HomeView.vue'
-import AlbumViewVue from '@/views/Frontstage/AlbumView.vue'
-import AdminManageViewVue from '@/views/Backstage/AdminManageView.vue'
-import FavSongListViewVue from '@/views/Frontstage/FavSongListView.vue'
-import MakeAlbumViewVue from '@/views/Frontstage/MakeAlbumView.vue'
-import MemberManageViewVue from '@/views/Backstage/MemberManageView.vue'
 import { useUserStore } from '@/stores/user'
+
+const HomeView = () => import("@/views/Frontstage/HomeView.vue")
+const AlbumViewVue = () => import("@/views/Frontstage/AlbumView.vue")
+const AdminManageViewVue = () => import("@/views/Backstage/AdminManageView.vue")
+const FavSongListViewVue = () => import("@/views/Frontstage/FavSongListView.vue")
+const MakeAlbumViewVue = () => import("@/views/Frontstage/MakeAlbumView.vue")
+const MemberManageViewVue = () => import("@/views/Backstage/MemberManageView.vue")
 
 const routes = [
   {

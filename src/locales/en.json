@@ -121,5 +121,8 @@
     "album_complete_alert": "Your album is complete. Would you like to publish it on the website?",
     "at_leaset_one_alert": "At least one audio file must be retained.",
     "non_mp3_file_alert": "【{file}】is not mp3,please re-select your file"
+  },
+  "validation": {
+    "password_mismatch": "The confirm password your enterd mismatch with password"
   }
 }

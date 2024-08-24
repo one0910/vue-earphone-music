@@ -92,18 +92,6 @@ export default {
         console.log('getAlbumSongs error => ', error)
       }
     },
-    async getAlbumInfo() {
-      try {
-        const Snapshot = await albumsCollection.doc(this.$route.params.gener).get()
-        const albumData = Snapshot.data().items.filter((item) => {
-          return item.albumSinger === this.$route.params.albumSinger
-        })
-
-        this.albumInfo = {
-          ...albumData[0]
-        }
-      } catch (error) {}
-    },
     palySong() {
       this.newSong(this.songList[0])
       this.isPlaying = true
@@ -116,8 +104,22 @@ export default {
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
     this.toastCount = 0
   },
-  async beforeMount() {
-    await this.getAlbumInfo()
+
+  /*本來fetch albums data是要在beforeMount的生命週期去執岑，現在改放到 beforeRouteEnter路由層級來做
+  裡是為了要測試其perceived performance的效果
+  */
+  async beforeRouteEnter(to, from, next) {
+    try {
+      const Snapshot = await albumsCollection.doc(to.params.gener).get()
+      next((vm) => {
+        const albumData = Snapshot.data().items.filter((item) => {
+          return item.albumSinger === vm.$route.params.albumSinger
+        })
+        vm.albumInfo = {
+          ...albumData[0]
+        }
+      })
+    } catch (error) {}
   }
 }
 </script>

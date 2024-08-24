@@ -2,12 +2,14 @@ import { fileURLToPath, URL } from 'node:url'
 import { defineConfig, loadEnv } from 'vite'
 import { VitePWA } from "vite-plugin-pwa"
 import vue from '@vitejs/plugin-vue'
+// import { visualizer } from 'rollup-plugin-visualizer'
 
 export default ({ mode }) => {
   // 加載環境變數
   const env = loadEnv(mode, process.cwd(), '')
   return defineConfig({
-    base: (env.NODE_ENV === 'development') ? '/' : env.VITE_APP_GIT_URL,
+    // base: (env.NODE_ENV === 'development') ? '/' : env.VITE_APP_GIT_URL,
+    base: '/',
     plugins: [
       vue(),
       /*VitePWA 會在vue專案裡自動產生manifest.json檔和service worke.js檔*/
@@ -49,7 +51,11 @@ export default ({ mode }) => {
               }
             }]
         }
-      })
+      }),
+      // visualizer({
+      //   /*open屬性可以強制開啟visualizer*/
+      //   open: true
+      // })
     ],
     resolve: {
       alias: {

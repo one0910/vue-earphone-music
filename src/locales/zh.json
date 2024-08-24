@@ -121,5 +121,8 @@
     "album_complete_alert": "專輯已完成，是否要公開至網站上?",
     "at_leaset_one_alert": "至少需保留一個音樂檔",
     "non_mp3_file_alert": "【{file}】非mp3檔,請重傳"
+  },
+  "validation": {
+    "password_mismatch": "與所輸入的密碼不符合"
   }
 }
