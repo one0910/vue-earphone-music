@@ -8,8 +8,7 @@ export default ({ mode }) => {
   // 加載環境變數
   const env = loadEnv(mode, process.cwd(), '')
   return defineConfig({
-    // base: (env.NODE_ENV === 'development') ? '/' : env.VITE_APP_GIT_URL,
-    base: '/',
+    base: (env.NODE_ENV === 'development') ? '/' : env.VITE_APP_GIT_URL,
     plugins: [
       vue(),
       /*VitePWA 會在vue專案裡自動產生manifest.json檔和service worke.js檔*/
