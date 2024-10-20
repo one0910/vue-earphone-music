@@ -46,7 +46,7 @@ export default {
     addToFav(songData) {
       if (!this.userLoggedIn) {
         this.toggle = !this.toggle
-        this.message = '該功能需登入才可使用，可免費註冊使用'
+        this.message = this.$t('ErroMsg.feature_unavailable_msg')
       } else {
         this.setFavSongToDatabase(songData.docID)
         this.toggle = !this.toggle
